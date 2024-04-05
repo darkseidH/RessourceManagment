@@ -8,16 +8,9 @@ package com.ressourcemanagement.model;
  */
 public class Ordinateur extends RessourceMaterielle {
 
-	private string cpu;
-	private string disque dur;
-	private string ecran;
-	private string ram;
+    private String cpu;
+    private String disk;
+    private String ecran;
+    private String ram;
 
-	public Ordinateur(){
-
-	}
-
-	public void finalize() throws Throwable {
-		super.finalize();
-	}
 }//end Ordinateur
