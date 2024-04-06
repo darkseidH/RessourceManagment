@@ -1,24 +1,37 @@
 package com.ressourcemanagement.model;
 
-import com.fasterxml.jackson.databind.annotation.EnumNaming;
 import com.ressourcemanagement.enumeration.RessourceStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
+@SuperBuilder
 @Entity
 public abstract class RessourceMaterielle {
-    private int idProfesseur;
-    private int idDepartement;
-    private int barCOde;
-    private RessourceStatus status;
     @Id
-    private Long id;
-    private List<Soumition> soumitions;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private int barCode;
+    private RessourceStatus status;
+    @ManyToOne
+    @JoinColumn(name = "enseigant_id", nullable = false)
+    private Enseignant enseignant;
+    @ManyToOne
+    @JoinColumn(name = "departement_id", nullable = false)
+    private Departement departement;
+    @OneToMany(mappedBy = "ressources")
+    private List<Soumission> soumissions;
+    @OneToMany(mappedBy = "ressources")
+    private List<Panne> pannes;
+    @ManyToOne
+    @JoinColumn(name = "appel_offre_id", nullable = true)
+    private AppelOffre appelOffre;
 
 }

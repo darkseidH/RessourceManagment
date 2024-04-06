@@ -1,8 +1,13 @@
 package com.ressourcemanagement.model;
 
 
-import com.ressourcemanagement.enumeration.PanneFrequence;
 import com.ressourcemanagement.enumeration.PaneOrder;
+import com.ressourcemanagement.enumeration.PanneFrequence;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -11,16 +16,27 @@ import java.util.Date;
  * @version 1.0
  * @created 05-Apr-2024 10:40:33 AM
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
+@Entity
 public class Panne {
-	private long idPanne;
+	public PaneOrder paneOrder;
 	private Date dateApparition;
 	private boolean demanderChanger;
 	private boolean demanderReparer;
 	private String explication;
 	private PanneFrequence frequence;
 	private PaneOrder ordre;
-	private long idRessource;
-	private PanneFrequence m_PanneFrequence;
-	public PaneOrder m_PaneOrder;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	private PanneFrequence panneFrequence;
+	@ManyToOne
+	@JoinColumn(name = "ressource_id", nullable = false)
+	private RessourceMaterielle ressources;
+	@ManyToOne
+	@JoinColumn(name = "technicien_id", nullable = false)
+	private Technicien technicien;
 }//end Panne
