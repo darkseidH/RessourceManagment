@@ -1,6 +1,7 @@
 package com.ressourcemanagement.model;
 
 
+import com.ressourcemanagement.enumeration.UsersRoles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +26,7 @@ import java.util.List;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public abstract class User implements UserDetails {
     private String email;
-    private String role;
+    private UsersRoles role;
     private String nom;
     private String password;
     private String prenom;

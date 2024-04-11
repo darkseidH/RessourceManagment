@@ -33,14 +33,14 @@
 
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
-                    <div th:if="${param.success}">
+                    <div th:if="${param.success}" class="alert alert-success text-center">
                         You successfully registered. Please use your credentials to log in.
                     </div>
-                    <div th:if="${param.error}">
+                    <div th:if="${param.error}" class="alert alert-danger text-center">
                         Login or password incorrect.
                     </div>
 
-                    <div th:if="${param.logout}">
+                    <div th:if="${param.logout}" class="alert alert-info text-center">
                         You've been logged out.
                     </div>
                     <!-- Nested Row within Card Body -->
