@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ import java.util.List;
 @Getter
 @SuperBuilder
 @Entity
-public abstract class User {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public abstract class User implements UserDetails {
     private String email;
     private String role;
     private String nom;

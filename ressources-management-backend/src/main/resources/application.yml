@@ -4,7 +4,6 @@ spring:
     username: avnadmin
     password: AVNS_jseI8pdISq44gZN5skZ
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
@@ -13,3 +12,4 @@ spring:
 
   application:
     name: ressourcemanagement
+debug: true
