@@ -36,7 +36,7 @@ public class Fournisseur extends User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> getRole());
+        return List.of(() -> getRole().name());
     }
 
     @Override

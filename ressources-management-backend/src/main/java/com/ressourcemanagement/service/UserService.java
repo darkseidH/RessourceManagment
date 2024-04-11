@@ -28,7 +28,7 @@ public class UserService {
                         .email(user.getEmail())
                         .password(passwordEncoder.encode(user.getPassword()))
                         .departement(departement)
-                        .role(UsersRoles.ENSEIGNANT.name())
+                        .role(UsersRoles.valueOf(UsersRoles.ENSEIGNANT.name()))
                         .build();
         System.out.println(enseignant.toString());
         enseignantRepositiry.save(enseignant);

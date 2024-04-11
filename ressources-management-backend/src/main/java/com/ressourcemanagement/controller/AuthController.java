@@ -3,20 +3,39 @@ package com.ressourcemanagement.controller;
 
 import com.ressourcemanagement.dto.UserDto;
 import com.ressourcemanagement.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class AuthController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping("/")
-    public String getHome() {
-        return "index";
+    public String getHomePage(Authentication authentication) {
+        String homePage = "home";
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            for (GrantedAuthority authority : authentication.getAuthorities()) {
+                if (authority.getAuthority().equals("ENSEIGNANT")) {
+                    homePage = "redirect:/enseignant";
+                    break;
+                } else if (authority.getAuthority().equals("RESPONSABLE")) {
+                    homePage = "redirect:/responsable";
+                    break;
+                } else if (authority.getAuthority().equals("TECHNICIEN")) {
+                    homePage = "redirect:/technicien";
+                    break;
+
+                }
+            }
+        }
+        return homePage;
     }
 
     @GetMapping("/login")

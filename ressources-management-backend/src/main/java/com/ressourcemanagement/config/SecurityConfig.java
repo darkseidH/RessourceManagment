@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .authenticated())
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
+                        .successHandler(new CustomAuthenticationSuccessHandler())
                         .permitAll())
                 .logout(LogoutConfigurer::permitAll).build();
     }
