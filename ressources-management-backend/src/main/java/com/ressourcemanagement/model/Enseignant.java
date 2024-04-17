@@ -29,7 +29,7 @@ public class Enseignant extends User implements UserDetails {
     @OneToMany(mappedBy = "enseignant")
     private List<RessourceMaterielle> ressources;
     @ManyToOne
-    @JoinColumn(name = "departement_id", nullable = false)
+    @JoinColumn(name = "departement_id", nullable = true)
     private Departement departement;
 
     @Override

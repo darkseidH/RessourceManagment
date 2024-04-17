@@ -29,14 +29,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/styles/*", "/register", "/login", "/css/**", "/js/**", "/img/**",
-                                "/scss/**", "/error", "/vendor/**", "/static/**")
+                        .requestMatchers("/styles/**", "/register", "/login", "/error")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .successHandler(new CustomAuthenticationSuccessHandler())
+                        .failureHandler(new CustomAuthenticationSuccessHandler())
                         .permitAll())
                 .logout(LogoutConfigurer::permitAll).build();
     }
@@ -49,7 +49,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder()); // use the PasswordEncoder
         return authenticationManagerBuilder.build();
     }
 }

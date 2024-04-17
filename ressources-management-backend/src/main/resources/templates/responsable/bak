@@ -1,0 +1,39 @@
+                        <form th:action="@{/editConstat}" method="post">
+                            <div class="form-group row">
+                                <div>
+                                    <input type="hidden" name="id" th:value="${panne.getId()}">
+                                </div>
+                                <label for="date-app" class="col-sm-2 col-form-label">Date</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" id="date-app" name="date_apparition"
+                                           th:value="${panne.getDateApparition()}">
+                                </div>
+
+                                <label for="explication" class="col-sm-2 col-form-label">Explication</label>
+                                <textarea id="explication" name="explication" th:value="${panne.getExplication()}">
+                                </textarea>
+
+                                <label for="frequence" class="col-sm-2 col-form-label">Explication</label>
+                                <input type="text" id="frequence" th:value="${panne.getFrequence()}">
+
+                                <label for="demander-changer" class="col-sm-2 col-form-label">Demande de
+                                    Changement</label>
+                                <div class="col-sm-10">
+                                    <select id="demander-changer" name="demander_changer">
+                                        <option th:value="true" th:selected="${panne.isDemanderChanger()}">True</option>
+                                        <option th:value="false" th:selected="${!panne.isDemanderChanger()}">False
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <label for="demander-reparer" class="col-sm-2 col-form-label">Demande de
+                                    Réparation</label>
+                                <div class="col-sm-10">
+                                    <select id="demander-reparer" name="demander_reparer">
+                                        <option th:value="true" th:selected="${panne.isDemanderReparer()}">True</option>
+                                        <option th:value="false" th:selected="${!panne.isDemanderReparer()}">False
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>

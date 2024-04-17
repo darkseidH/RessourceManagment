@@ -17,7 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         var loadedUser = userService.findByEmail(email);
         if (loadedUser == null) {
-            return null;
+            throw new UsernameNotFoundException("User not found");
         } else {
             User user;
             user = loadedUser;

@@ -19,12 +19,13 @@ public abstract class RessourceMaterielle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int barCode;
+    private String marque;
     private RessourceStatus status;
     @ManyToOne
-    @JoinColumn(name = "enseigant_id", nullable = false)
+    @JoinColumn(name = "enseigant_id", nullable = true)
     private Enseignant enseignant;
     @ManyToOne
-    @JoinColumn(name = "departement_id", nullable = false)
+    @JoinColumn(name = "departement_id", nullable = true)
     private Departement departement;
     @OneToMany(mappedBy = "ressources")
     private List<Soumission> soumissions;

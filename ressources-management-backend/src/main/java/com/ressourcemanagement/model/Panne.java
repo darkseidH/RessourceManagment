@@ -36,7 +36,7 @@ public class Panne {
 	@ManyToOne
 	@JoinColumn(name = "ressource_id", nullable = false)
 	private RessourceMaterielle ressources;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "technicien_id", nullable = false)
 	private Technicien technicien;
 }//end Panne
