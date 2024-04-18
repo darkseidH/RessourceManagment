@@ -20,12 +20,15 @@ import java.util.List;
 @Builder
 @Entity
 public class Departement {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private String nom;
-	@OneToMany(mappedBy = "departement")
-	private List<Enseignant> enseignants;
-	@OneToMany(mappedBy = "departement")
-	private List<RessourceMaterielle> ressources;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String nom;
+    @OneToMany(mappedBy = "departement")
+    private List<Enseignant> enseignants;
+    @OneToMany(mappedBy = "departement")
+    private List<RessourceMaterielle> ressources;
+    @OneToOne
+    @JoinColumn(name = "enseigant_id", referencedColumnName = "id")
+    private Enseignant enseignant;
 }//end Departement

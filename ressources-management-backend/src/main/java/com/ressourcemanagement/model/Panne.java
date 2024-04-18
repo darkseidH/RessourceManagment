@@ -22,21 +22,21 @@ import java.util.Date;
 @Builder
 @Entity
 public class Panne {
-	public PaneOrder paneOrder;
-	private Date dateApparition;
-	private boolean demanderChanger;
-	private boolean demanderReparer;
-	private String explication;
-	private PanneFrequence frequence;
-	private PaneOrder ordre;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private PanneFrequence panneFrequence;
-	@ManyToOne
-	@JoinColumn(name = "ressource_id", nullable = false)
-	private RessourceMaterielle ressources;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "technicien_id", nullable = false)
-	private Technicien technicien;
+    public PaneOrder paneOrder;
+    private Date dateApparition;
+    private boolean demanderChanger;
+    private boolean demanderReparer;
+    private String explication;
+    private PanneFrequence frequence;
+    private PaneOrder ordre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private PanneFrequence panneFrequence;
+    @ManyToOne
+    @JoinColumn(name = "ressource_id", nullable = false)
+    private RessourceMaterielle ressources;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "technicien_id", nullable = false)
+    private Technicien technicien;
 }//end Panne

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Constat</title>
+    <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -35,11 +35,18 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">
-                <span th:text="${user.getRole()}">
-                </span>
-            </div>
+            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
         </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -97,9 +104,15 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" th:href="@{/responsable/constats}">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
+                <span>Constats</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/responsable/users}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Users</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
@@ -284,41 +297,39 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Dashboard</h1>
+                <h1>Users</h1>
+                <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Liste des Utilisateurs</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Explication</th>
-                                    <th>Date Apparution</th>
-                                    <th>Fréquence</th>
-                                    <th>Order</th>
-                                    <th>Action</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:if="${panneList.isEmpty()}">
-                                    <td colspan="4"> Pas de Pannes!</td>
+                                <tr th:if="${userList.isEmpty()}">
+                                    <td colspan="4"> Pas d'utilisateur !</td>
                                 </tr>
-                                <!--/*@thymesVar id="pannes" type=""*/-->
-                                <tr th:each="panne : ${panneList}">
-                                    <td th:text="${panne.getExplication()}"></td>
-                                    <td th:text="${panne.getDateApparition()}"></td>
-                                    <td th:text="${panne.getFrequence()}"></td>
-                                    <td th:text="${panne.getOrdre()}"></td>
+                                <tr th:each="user : ${userList}">
+                                    <td th:text="${user.getNom()}"></td>
+                                    <td th:text="${user.getPrenom()}"></td>
+                                    <td th:text="${user.getEmail()}"></td>
+                                    <td th:text="${user.getRole()}"></td>
                                     <td>
-                                        <a th:href="@{/responsable/constats/{id}(id=${panne.getId()})}"
-                                           class="btn btn-primary">Voir</a>
-                                        <a
-                                                th:href="@{/responsable/constats/modifier/{id}(id=${panne.id})}"
-                                                class="btn btn-warning">Modifier</a>
+                                        <a th:href="@{/responsable/users/{id}/edit(id=${user.getId()})}"
+                                           class="btn btn-warning">Modifier</a>
+                                        <a th:href="@{/responsable/users/{id}/delete(id=${user.getId()})}"
+                                           class="btn btn-danger">Supprimer</a>
                                     </td>
-                                    <!-- Add more cells as needed for other Panne properties -->
                                 </tr>
                                 </tbody>
                             </table>
@@ -370,8 +381,6 @@
 
 <!-- Page level custom scripts -->
 <script type="text/javascript" th:src="@{/styles/js/demo/datatables-demo.js}"></script>
-
-
 </body>
 
 </html>

@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserService {
@@ -21,10 +23,12 @@ public class UserService {
     private UserRepository userRepository;
 
     public String register(UserDto user) {
-        Departement departement = new Departement().builder().nom("Physics").build();
+        new Departement();
+        Departement departement = Departement.builder().nom("Physics").build();
         departementRepository.save(departement);
+        new Enseignant();
         Enseignant enseignant =
-                new Enseignant().builder()
+                Enseignant.builder()
                         .email(user.getEmail())
                         .password(passwordEncoder.encode(user.getPassword()))
                         .departement(departement)
@@ -40,4 +44,27 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public void deleteUser(long id) {
+        userRepository.deleteById(id);
+    }
+
+    public void updateUser(long id, UserDto user) {
+        User userToUpdate = userRepository.findById(id).orElse(null);
+        if (userToUpdate != null) {
+            userToUpdate.setNom(user.getNom());
+            userToUpdate.setPrenom(user.getPrenom());
+            userToUpdate.setEmail(user.getEmail());
+            userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
+            userToUpdate.setRole(userToUpdate.getRole());
+            userRepository.save(userToUpdate);
+        }
+    }
 }

@@ -7,7 +7,7 @@ package com.ressourcemanagement.enumeration;
  * @created 05-Apr-2024 10:40:30 AM
  */
 public enum PanneFrequence {
-	RARE,
-	PERMANANTE,
-	FREQUENTE
+    RARE,
+    PERMANANTE,
+    FREQUENTE
 }

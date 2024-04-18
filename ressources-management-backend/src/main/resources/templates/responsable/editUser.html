@@ -31,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/home}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -286,43 +286,33 @@
 
                 <h1>Dashboard</h1>
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                    </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Explication</th>
-                                    <th>Date Apparution</th>
-                                    <th>Fréquence</th>
-                                    <th>Order</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:if="${panneList.isEmpty()}">
-                                    <td colspan="4"> Pas de Pannes!</td>
-                                </tr>
-                                <!--/*@thymesVar id="pannes" type=""*/-->
-                                <tr th:each="panne : ${panneList}">
-                                    <td th:text="${panne.getExplication()}"></td>
-                                    <td th:text="${panne.getDateApparition()}"></td>
-                                    <td th:text="${panne.getFrequence()}"></td>
-                                    <td th:text="${panne.getOrdre()}"></td>
-                                    <td>
-                                        <a th:href="@{/responsable/constats/{id}(id=${panne.getId()})}"
-                                           class="btn btn-primary">Voir</a>
-                                        <a
-                                                th:href="@{/responsable/constats/modifier/{id}(id=${panne.id})}"
-                                                class="btn btn-warning">Modifier</a>
-                                    </td>
-                                    <!-- Add more cells as needed for other Panne properties -->
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <form th:action="@{/responsable/users/{id}/edit(id=${user_to_modify.id})}" method="post"
+                              th:object="${user_to_modify}">
+                            <input type="hidden" name="id" th:field="*{id}">
+
+                            <div class="form-group">
+                                <label for="nom">Nom</label>
+                                <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prenom">Prénom</label>
+                                <input type="text" class="form-control" id="prenom" name="prenom" th:field="*{prenom}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" th:field="*{password}" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                     </div>
                 </div>
 

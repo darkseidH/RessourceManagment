@@ -31,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/home}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -284,45 +284,71 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Dashboard</h1>
+                <h1>Panne</h1>
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                    </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Explication</th>
-                                    <th>Date Apparution</th>
-                                    <th>Fréquence</th>
-                                    <th>Order</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:if="${panneList.isEmpty()}">
-                                    <td colspan="4"> Pas de Pannes!</td>
-                                </tr>
-                                <!--/*@thymesVar id="pannes" type=""*/-->
-                                <tr th:each="panne : ${panneList}">
-                                    <td th:text="${panne.getExplication()}"></td>
-                                    <td th:text="${panne.getDateApparition()}"></td>
-                                    <td th:text="${panne.getFrequence()}"></td>
-                                    <td th:text="${panne.getOrdre()}"></td>
-                                    <td>
-                                        <a th:href="@{/responsable/constats/{id}(id=${panne.getId()})}"
-                                           class="btn btn-primary">Voir</a>
-                                        <a
-                                                th:href="@{/responsable/constats/modifier/{id}(id=${panne.id})}"
-                                                class="btn btn-warning">Modifier</a>
-                                    </td>
-                                    <!-- Add more cells as needed for other Panne properties -->
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div class="form-group">
+                            <label for="date-app">Date</label>
+                            <input type="date" class="form-control" id="date-app" name="date_apparition"
+                                   th:value="${panne.dateApparition}" disabled>
                         </div>
+
+                        <div class="form-group">
+                            <label for="explication">Explication</label>
+                            <textarea id="explication" name="explication" class="form-control"
+                                      th:value="${panne.explication}" disabled></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="frequence">Frequence</label>
+                            <input type="text" id="frequence" name="frequence" class="form-control"
+                                   th:value="${panne.frequence}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="demander-changer">Demande de Changement</label>
+                            <select id="demander-changer" name="demander_changer" class="form-control"
+                                    th:value="${panne.demanderChanger}" disabled>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="demander-reparer">Demande de Réparation</label>
+                            <select id="demander-reparer" name="demander_reparer" class="form-control"
+                                    th:value="${panne.demanderReparer}" disabled>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ordre">Ordre</label>
+                            <input type="text" id="ordre" name="ordre" class="form-control"
+                                   th:value="${panne.ordre}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cpu">CPU</label>
+                            <input type="text" id="cpu" name="cpu" class="form-control"
+                                   th:value="${ordinateur.getCpu()}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="disk">Disk</label>
+                            <input type="text" id="disk" name="disk" class="form-control"
+                                   th:value="${ordinateur.getDisk()}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ecran">Ecran</label>
+                            <input type="text" id="ecran" name="ecran" class="form-control"
+                                   th:value="${ordinateur.getEcran()}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ram">RAM</label>
+                            <input type="text" id="ram" name="ram" class="form-control"
+                                   th:value="${ordinateur.getRam()}" disabled>
+                        </div>
+
                     </div>
                 </div>
 

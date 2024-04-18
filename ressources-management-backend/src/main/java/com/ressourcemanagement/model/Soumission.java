@@ -20,17 +20,17 @@ import java.util.Date;
 @Builder
 @Entity
 public class Soumission {
-	@ManyToOne
-	@JoinColumn(name = "fournisseur_id", nullable = false)
-	public Fournisseur fournisseur;
-	private Date dateLivraison;
-	@ManyToOne
-	@JoinColumn(name = "ressource_id", nullable = false)
-	public RessourceMaterielle ressources;
-	private String marque;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private int dureeGarantie;
-	private double prix;
+    @ManyToOne
+    @JoinColumn(name = "fournisseur_id", nullable = false)
+    public Fournisseur fournisseur;
+    @ManyToOne
+    @JoinColumn(name = "ressource_id", nullable = false)
+    public RessourceMaterielle ressources;
+    private Date dateLivraison;
+    private String marque;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private int dureeGarantie;
+    private double prix;
 }//end Soumition

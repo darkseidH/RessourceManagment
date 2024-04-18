@@ -3,7 +3,10 @@ package com.ressourcemanagement.dto;
 import com.ressourcemanagement.enumeration.PaneOrder;
 import com.ressourcemanagement.enumeration.PanneFrequence;
 import com.ressourcemanagement.model.RessourceMaterielle;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
