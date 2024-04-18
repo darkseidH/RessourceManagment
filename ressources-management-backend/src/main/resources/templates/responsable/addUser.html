@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Constat</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -31,22 +31,15 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/home}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">
+                <span th:text="${user.getRole()}">
+                </span>
+            </div>
         </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" th:href="@{/}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -104,15 +97,9 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/responsable/constats}">
+            <a class="nav-link" href="charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Constats</span></a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/responsable/users}">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Users</span></a>
+                <span>Charts</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
@@ -140,7 +127,7 @@
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
-        <div id="content d-flex">
+        <div id="content">
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -297,45 +284,59 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Users</h1>
-                <!-- DataTales Example -->
-                <a th:href="@{/responsable/users/add}" class="btn btn-success mb-2 ml-auto">Add New User</a>
-
+                <h1>Dashboard</h1>
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Liste des Utilisateurs</h6>
-                    </div>
+                    <p th:text="${errorMessage}" class="error-message text-center text-danger"></p>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Prénom</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:if="${userList.isEmpty()}">
-                                    <td colspan="4"> Pas d'utilisateur !</td>
-                                </tr>
-                                <tr th:each="user : ${userList}">
-                                    <td th:text="${user.getNom()}"></td>
-                                    <td th:text="${user.getPrenom()}"></td>
-                                    <td th:text="${user.getEmail()}"></td>
-                                    <td th:text="${user.getRole()}"></td>
-                                    <td>
-                                        <a th:href="@{/responsable/users/{id}/edit(id=${user.getId()})}"
-                                           class="btn btn-warning">Modifier</a>
-                                        <a th:href="@{/responsable/users/{id}/delete(id=${user.getId()})}"
-                                           class="btn btn-danger">Supprimer</a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <form th:action="@{/responsable/users/add}" method="post"
+                              th:object="${user_to_add}">
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <select id="role" name="role" class="form-control"
+                                        onchange="handleRoleChange()" th:field="*{role}">
+                                    <option value="0">Enseignant</option>
+                                    <option value="1">Chef de Département</option>
+                                    <option value="2">Technicien</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nom">Nom</label>
+                                <input type="text" class="form-control" id="nom" name="nom" th:field="*{nom}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prenom">Prénom</label>
+                                <input type="text" class="form-control" id="prenom" name="prenom" th:field="*{prenom}"
+                                       required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" th:field="*{email}"
+                                       required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                       th:field="*{password}" required>
+                            </div>
+
+                            <div class="enseignant-infos" style="display: block">
+                                <div class="form-group">
+                                    <label for="departement">Département</label>
+                                    <select id="departement" name="departement" class="form-control"
+                                            th:field="*{departement_id}">
+                                        <option th:each="departement : ${departements}"
+                                                th:value="${departement.getId()}">
+                                            <span th:text="${departement.getNom()}"></span>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                     </div>
                 </div>
 
@@ -383,6 +384,20 @@
 
 <!-- Page level custom scripts -->
 <script type="text/javascript" th:src="@{/styles/js/demo/datatables-demo.js}"></script>
+
+<script type="text/javascript">
+    function handleRoleChange() {
+        var selectedValue = document.getElementById("role").value;
+        var enseignantInfos = document.getElementsByClassName("enseignant-infos");
+
+        if (selectedValue == 0 || selectedValue == 1) {
+            enseignantInfos[0].style.display = "block";
+        } else {
+            enseignantInfos[0].style.display = "none";
+        }
+    }
+</script>
+
 </body>
 
 </html>

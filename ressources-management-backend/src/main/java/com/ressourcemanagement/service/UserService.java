@@ -4,6 +4,7 @@ import com.ressourcemanagement.dto.UserDto;
 import com.ressourcemanagement.enumeration.UsersRoles;
 import com.ressourcemanagement.model.Departement;
 import com.ressourcemanagement.model.Enseignant;
+import com.ressourcemanagement.model.Technicien;
 import com.ressourcemanagement.model.User;
 import com.ressourcemanagement.repository.DepartementRepository;
 import com.ressourcemanagement.repository.EnseignantRepository;
@@ -65,6 +66,45 @@ public class UserService {
             userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
             userToUpdate.setRole(userToUpdate.getRole());
             userRepository.save(userToUpdate);
+        }
+    }
+
+    public void addUser(UserDto user) {
+        if (user.getRole().equals("0")) {
+            new Enseignant();
+            Enseignant enseignant = Enseignant.builder()
+                    .nom(user.getNom())
+                    .prenom(user.getPrenom())
+                    .email(user.getEmail())
+                    .password(passwordEncoder.encode(user.getPassword()))
+                    .role(UsersRoles.ENSEIGNANT)
+                    .build();
+            enseignantRepositiry.save(enseignant);
+        } else if (user.getRole().equals("1")) {
+            Departement departement = departementRepository.findById(user.getDepartement_id()).orElse(null);
+            new Enseignant();
+            Enseignant enseignant = Enseignant.builder()
+                    .nom(user.getNom())
+                    .prenom(user.getPrenom())
+                    .email(user.getEmail())
+                    .password(passwordEncoder.encode(user.getPassword()))
+                    .role(UsersRoles.ENSEIGNANT)
+                    .departement(departement)
+                    .build();
+            enseignantRepositiry.save(enseignant);
+            enseignant = enseignantRepositiry.findByEmail(user.getEmail());
+            departement.setEnseignant(enseignant);
+            departementRepository.save(departement);
+        } else {
+            new Technicien();
+            Technicien technicien = Technicien.builder()
+                    .nom(user.getNom())
+                    .prenom(user.getPrenom())
+                    .email(user.getEmail())
+                    .password(passwordEncoder.encode(user.getPassword()))
+                    .role(UsersRoles.TECHNICIEN)
+                    .build();
+            userRepository.save(technicien);
         }
     }
 }
