@@ -31,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/home}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -280,49 +280,64 @@
 
             </nav>
             <!-- End of Topbar -->
+            <style>
+                .resource-item {
+                    margin-bottom: 20px;
+                    padding: 10px;
+                    background-color: #f8f9fa;
+                    border-radius: 5px;
+                }
 
+                .computer-details, .printer-details {
+                    margin-bottom: 10px;
+                }
+
+                .detail {
+                    margin-bottom: 5px;
+                    font-size: 14px;
+                }
+
+                .separator {
+                    border-top: 1px solid #dee2e6;
+                }
+            </style>
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Dashboard</h1>
+                <h1>Panne</h1>
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                    </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Explication</th>
-                                    <th>Date Apparution</th>
-                                    <th>Fréquence</th>
-                                    <th>Order</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:if="${panneList.isEmpty()}">
-                                    <td colspan="4"> Pas de Pannes!</td>
-                                </tr>
-                                <!--/*@thymesVar id="pannes" type=""*/-->
-                                <tr th:each="panne : ${panneList}">
-                                    <td th:text="${panne.getExplication()}"></td>
-                                    <td th:text="${panne.getDateApparition()}"></td>
-                                    <td th:text="${panne.getFrequence()}"></td>
-                                    <td th:text="${panne.getOrdre()}"></td>
-                                    <td>
-                                        <a th:href="@{/responsable/constats/{id}(id=${panne.getId()})}"
-                                           class="btn btn-primary">Voir</a>
-                                        <a
-                                                th:href="@{/responsable/constats/modifier/{id}(id=${panne.id})}"
-                                                class="btn btn-warning">Modifier</a>
-                                    </td>
-                                    <!-- Add more cells as needed for other Panne properties -->
-                                </tr>
-                                </tbody>
-                            </table>
+                        <h1>Apple Offre</h1>
+                        <div class="form-group">
+                            <label for="date-app">Date Debut</label>
+                            <input type="date" class="form-control" id="date-app" name="date_apparition"
+                                   th:value="${appelOffre.getDateDebut()}" disabled>
                         </div>
+
+                        <div class="form-group">
+                            <label for="explication">Explication</label>
+                            <textarea id="explication" name="explication" class="form-control"
+                                      th:value="${appelOffre.getDateFin()}" disabled></textarea>
+                        </div>
+                        <h1>List des Ressources</h1>
+                        <div th:each="ressource : ${listesRessources}" class="resource-item">
+                            <div th:if="${ressource instanceof T(com.ressourcemanagement.model.Ordinateur)}"
+                                 class="computer-details">
+                                <p class="detail"><strong>CPU:</strong> <span th:text="${ressource.cpu}"></span></p>
+                                <p class="detail"><strong>Disk:</strong> <span th:text="${ressource.disk}"></span></p>
+                                <p class="detail"><strong>Ecran:</strong> <span th:text="${ressource.ecran}"></span></p>
+                                <p class="detail"><strong>RAM:</strong> <span th:text="${ressource.ram}"></span></p>
+                            </div>
+                            <div th:if="${ressource instanceof T(com.ressourcemanagement.model.Imprimante)}"
+                                 class="printer-details">
+                                <p class="detail"><strong>Resolution:</strong> <span
+                                        th:text="${ressource.resolution}"></span></p>
+                                <p class="detail"><strong>Vitesse d'impression:</strong> <span
+                                        th:text="${ressource.vitesseImpression}"></span></p>
+                            </div>
+                            <hr class="separator">
+                        </div>
+
                     </div>
                 </div>
 

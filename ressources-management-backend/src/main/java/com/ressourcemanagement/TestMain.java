@@ -1,5 +1,6 @@
 package com.ressourcemanagement;
 
+import com.ressourcemanagement.model.Ordinateur;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 
@@ -41,20 +42,20 @@ public class TestMain implements CommandLineRunner {
 //                .prenom("Hamza")
 //                .build();
 //        Departement departement = new Departement().builder().nom("Computer Science").build();
-//        Ordinateur ordinateur1 = new Ordinateur().builder()
-//                .cpu("intel i9")
-//                .ram("16 gb")
-//                .disk("1 tb")
-//                .barCode(2)
-//                .departement(departement)
-//                .build();
-//        Ordinateur ordinateur2 = new Ordinateur().builder()
-//                .cpu("intel i7")
-//                .ram("8 gb")
-//                .disk("256 gb")
-//                .barCode(3)
-//                .departement(departement)
-//                .build();
+        Ordinateur ordinateur1 = Ordinateur.builder()
+                .cpu("intel i9")
+                .ram("16 gb")
+                .disk("1 tb")
+                .barCode(2)
+                .build();
+        Ordinateur ordinateur2 = Ordinateur.builder()
+                .cpu("intel i7")
+                .ram("8 gb")
+                .disk("256 gb")
+                .barCode(3)
+                .build();
+
+
 //        Enseignant enseignant = new Enseignant().builder()
 //                .email("chaqchaq9@gmail.com")
 //                .role(UsersRoles.ENSEIGNANT)
@@ -97,6 +98,7 @@ public class TestMain implements CommandLineRunner {
 //        enseigantRepository.save(enseignant);
 //        panneRepository.save(panne1);
 //        panneRepository.save(panne2);
+
 
     }
 }
