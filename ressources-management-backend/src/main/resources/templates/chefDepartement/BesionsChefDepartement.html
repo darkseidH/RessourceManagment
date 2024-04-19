@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Besoins</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -75,23 +75,19 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <!-- Vérifie si l'utilisateur est un chef de département -->
-        <th:block th:if="${isChef}">
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Chef de Département</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" th:href="@{/Notification/AjouterNotificationDEBesions}">Envoyer les besoins</a>
-                        <a class="collapse-item" th:href="@{/chefDepartement/besionsDepartement}">Besoins</a>
-                    </div>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+               aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Chef de Departement</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" th:href="@{/Notification/AjouterNotificationDEBesions}">Envoyer les besoins</a>
+                    <a class="collapse-item" th:href="@{/chefDepartement/besionsDepartement}">Besions</a>
                 </div>
-            </li>
-        </th:block>
-
+            </div>
+        </li>
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
@@ -282,26 +278,89 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Dashboard</h1>
+                <h1>Besoins</h1>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Ordinateurs</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Enseignant</th>
+                                    <th>Marque</th>
+                                    <th>Cpu</th>
+                                    <th>Disk</th>
+                                    <th>écran</th>
+                                    <th>Ram</th>
+                                    <th>utilisé par le déparetement</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${ordinateurs.isEmpty()}">
+                                    <td colspan="4"> Pas d'ordinateurs !</td>
+                                </tr>
+                                <tr th:each="ordinateur : ${ordinateurs}">
+                                    <td th:text="${ordinateur.getEnseignant().getNom()+' '+ ordinateur.getEnseignant().getPrenom()}"></td>
+                                    <td th:text="${ordinateur.getMarque()}"></td>
+                                    <td th:text="${ordinateur.getCpu()}"></td>
+                                    <td th:text="${ordinateur.getDisk()}"></td>
+                                    <td th:text="${ordinateur.getEcran()}"></td>
+                                    <td th:text="${ordinateur.getRam()}"></td>
+                                    <td th:text="${ordinateur.getDepartement() != null ? 'oui' : 'non'}"></td>
+                                    <td>
+                                        <a th:href="@{/chefDepartement/ordinateur/{id}/edit(id=${ordinateur.getId()})}"
+                                           class="btn btn-warning">Modifier</a>
+                                        <a th:href="@{/chefDepartement/ordinateur/{id}/delete(id=${ordinateur.getId()})}"
+                                           class="btn btn-danger">Supprimer</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Imprimants</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
+                                    <th>Enseignant</th>
                                     <th>Marque</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>resolution</th>
+                                    <th>vitesseImpression</th>
+                                    <th>utilisé par le déparetement</th>
+                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <tr th:if="${imprimantes.isEmpty()}">
+                                    <td colspan="4"> Pas d'imprimants !</td>
+                                </tr>
+                                <tr th:each="imprimante : ${imprimantes}">
+                                    <td th:text="${imprimante.getEnseignant().getNom()+' '+ imprimante.getEnseignant().getPrenom()}"></td>
+                                    <td th:text="${imprimante.getMarque()}"></td>
+                                    <td th:text="${imprimante.getResolution()}"></td>
+                                    <td th:text="${imprimante.getVitesseImpression()}"></td>
+                                    <td th:text="${imprimante.getDepartement() != null ? 'oui' : 'non'}"></td>
+                                    <td>
+                                        <a th:href="@{/chefDepartement/imprimante/{id}/edit(id=${imprimante.getId()})}"
+                                           class="btn btn-warning">Modifier</a>
+                                        <a th:href="@{/chefDepartement/imprimante/{id}/delete(id=${imprimante.getId()})}"
+                                           class="btn btn-danger">Supprimer</a>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+
+                    <div class="card-footer py-3">
+                        <a th:href="@{/chefDepartement/passerResponsable}" class="btn btn-primary">Passer au responsable</a>
                     </div>
                 </div>
 

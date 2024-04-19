@@ -71,12 +71,14 @@ public class UserService {
 
     public void addUser(UserDto user) {
         if (user.getRole().equals("0")) {
+            Departement departement = departementRepository.findById(user.getDepartement_id()).orElse(null);
             new Enseignant();
             Enseignant enseignant = Enseignant.builder()
                     .nom(user.getNom())
                     .prenom(user.getPrenom())
                     .email(user.getEmail())
                     .password(passwordEncoder.encode(user.getPassword()))
+                    .departement(departement)
                     .role(UsersRoles.ENSEIGNANT)
                     .build();
             enseignantRepositiry.save(enseignant);
