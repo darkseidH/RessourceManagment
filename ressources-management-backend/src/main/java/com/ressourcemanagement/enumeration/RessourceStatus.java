@@ -1,5 +1,9 @@
 package com.ressourcemanagement.enumeration;
 
 public enum RessourceStatus {
-    AFFECTE, ENCOURS, NONAFFECTE
+    CREE_PAR_ENSEIGNANT,
+    ENVOYE_RESPONSABLE,
+    APPEL_OFFRE,
+    LIVRAISON,
+    AFFECTE_APRES_LIVRAISON;
 }

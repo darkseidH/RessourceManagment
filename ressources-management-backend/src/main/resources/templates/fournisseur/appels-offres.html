@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Constat</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/home}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -75,23 +75,25 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <!-- Vérifie si l'utilisateur est un chef de département -->
-        <th:block th:if="${isChef}">
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Chef de Département</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" th:href="@{/Notification/AjouterNotificationDEBesions}">Envoyer les besoins</a>
-                        <a class="collapse-item" th:href="@{/chefDepartement/besionsDepartement}">Besoins</a>
-                    </div>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+               aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Pages</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Login Screens:</h6>
+                    <a class="collapse-item" href="login.html">Login</a>
+                    <a class="collapse-item" href="register.html">Register</a>
+                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                    <div class="collapse-divider"></div>
+                    <h6 class="collapse-header">Other Pages:</h6>
+                    <a class="collapse-item" href="404.html">404 Page</a>
+                    <a class="collapse-item" href="blank.html">Blank Page</a>
                 </div>
-            </li>
-        </th:block>
-
+            </div>
+        </li>
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
@@ -292,13 +294,25 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Marque</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
+                                    <th>Date Debut</th>
+                                    <th>Date Fin</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <tr th:if="${filtredList.isEmpty()}">
+                                    <td colspan="4"> Pas d'Appel Offre!</td>
+                                </tr>
+                                <!--/*@thymesVar id="pannes" type=""*/-->
+                                <tr th:each="appelOffre : ${filtredList}">
+                                    <td th:text="${appelOffre.getDateDebut()}"></td>
+                                    <td th:text="${appelOffre.getDateFin()}"></td>
+                                    <td>
+                                        <a th:href="@{/fournisseur/appel-offres/{id}(id=${appelOffre.getId()})}"
+                                           class="btn btn-primary">Voir</a>
+                                    </td>
+                                    <!-- Add more cells as needed for other Panne properties -->
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -341,14 +355,14 @@
 <script type="text/javascript" th:src="@{/styles/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
 <!-- Custom scripts for all pages-->
-<script type="text/javascript" th:src="@{/style/js/sb-admin-2.min.js}"></script>
+<script type="text/javascript" th:src="@{/styles/js/sb-admin-2.min.js}"></script>
 
 <!-- Page level plugins -->
 <script type="text/javascript" th:src="@{/styles/vendor/datatables/jquery.dataTables.min.js}"></script>
-<script type="text/javascript" th:src="@{/style/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+<script type="text/javascript" th:src="@{/styles/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
 
 <!-- Page level custom scripts -->
-<script type="text/javascript" th:src="@{/style/js/demo/datatables-demo.js}"></script>
+<script type="text/javascript" th:src="@{/styles/js/demo/datatables-demo.js}"></script>
 
 
 </body>

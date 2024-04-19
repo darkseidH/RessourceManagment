@@ -21,4 +21,14 @@ public class DepartementService {
     public List<Departement> getAllDepartements() {
         return departementRepository.findAll();
     }
+
+    public Departement findDepartementByIdChef(Long id) {
+        return departementRepository.findDepartementByEnseignant_Id(id);
+    }
+
+    public Departement getDepartementById(Long id) {
+        return departementRepository.findById(id).orElse(null);
+    }
+
+
 }
