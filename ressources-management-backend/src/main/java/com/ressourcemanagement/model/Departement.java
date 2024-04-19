@@ -29,6 +29,6 @@ public class Departement {
     @OneToMany(mappedBy = "departement")
     private List<RessourceMaterielle> ressources;
     @OneToOne
-    @JoinColumn(name = "enseigant_id", referencedColumnName = "id")
+    @JoinColumn(name = "enseignant_id", referencedColumnName = "id")
     private Enseignant enseignant;
 }//end Departement

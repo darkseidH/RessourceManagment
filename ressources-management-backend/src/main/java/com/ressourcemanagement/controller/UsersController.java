@@ -3,6 +3,7 @@ package com.ressourcemanagement.controller;
 import com.ressourcemanagement.dto.UserDto;
 import com.ressourcemanagement.enumeration.UsersRoles;
 import com.ressourcemanagement.model.User;
+import com.ressourcemanagement.service.DepartementService;
 import com.ressourcemanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +19,8 @@ import java.util.List;
 public class UsersController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private DepartementService departementService;
 
     @GetMapping("/responsable/users")
     public String getAllUsers(Model model, @AuthenticationPrincipal User user) {
@@ -50,8 +53,18 @@ public class UsersController {
 
     @GetMapping("/responsable/users/add")
     public String addUser(Model model, @AuthenticationPrincipal User user) {
+        UserDto user_to_add = new UserDto();
+        model.addAttribute("user_to_add", user_to_add);
+        model.addAttribute("departements", departementService.getAllDepartements());
         model.addAttribute("user", user);
         return "responsable/addUser";
+    }
+
+    @PostMapping("/responsable/users/add")
+    public String addUser(UserDto user) {
+        System.out.println(user.toString());
+        userService.addUser(user);
+        return "redirect:/responsable/users?add_success";
     }
 
 }

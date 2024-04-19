@@ -7,4 +7,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DepartementRepository extends JpaRepository<Departement, Long> {
     boolean existsDepartementByEnseignant_Id(Long enseignantId);
+
+    Departement findByNom(String nom);
+
+    Departement findDepartementByEnseignant_Id(Long id);
+
 }
