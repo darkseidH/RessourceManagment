@@ -38,7 +38,6 @@ public class OrdinateurService {
         if (ordinateur1 != null) {
             ordinateur1.setId(ordinateur.getId());
             ordinateur1.setMarque(ordinateur.getMarque());
-            ordinateur1.setEnseignant(ordinateur.getEnseignant());
             ordinateur1.setStatus(ordinateur.getStatus());
             ordinateur1.setDepartement(ordinateur.getDepartement());
             ordinateur1.setRam(ordinateur.getRam());
@@ -47,5 +46,13 @@ public class OrdinateurService {
             ordinateur1.setEcran(ordinateur.getEcran());
             ordinateurRepository.save(ordinateur1);
         }
+    }
+
+    public void saveOrdinateur(Ordinateur ordinateur) {
+        ordinateurRepository.save(ordinateur);
+    }
+
+    public List<Ordinateur> getAllOrdinateurAffecterEnsignant(Long id) {
+        return ordinateurRepository.findAllByStatusAndEnseignant(RessourceStatus.AFFECTE_APRES_LIVRAISON, enseignantService.getEnsignatById(id));
     }
 }
