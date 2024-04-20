@@ -15,10 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 public class ImprimanteService {
     @Autowired
-    private ImprimanteRepository imprimanteRepository;
-    @Autowired
     EnseignantService enseignantService;
-
+    @Autowired
+    private ImprimanteRepository imprimanteRepository;
 
     public List<Imprimante> getAllImprimantCreeParEnsignant(Long idEnsignant) {
         Enseignant enseignant = enseignantService.getEnsignatById(idEnsignant);

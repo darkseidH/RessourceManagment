@@ -4,8 +4,8 @@ import com.ressourcemanagement.model.AppelOffre;
 import com.ressourcemanagement.model.RessourceMaterielle;
 import com.ressourcemanagement.model.User;
 import com.ressourcemanagement.service.AppelOffreService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@AllArgsConstructor
 @Controller
+@PreAuthorize("hasRole('ROLE_RESPONSABLE')")
 public class AppelOffreController {
     @Autowired
     private AppelOffreService appelOffreService;
@@ -23,6 +23,7 @@ public class AppelOffreController {
     @GetMapping("/responsable/appel-offres")
     public String getAllAppelOffres(Model model, @AuthenticationPrincipal User user) {
         List<AppelOffre> appelOffres = appelOffreService.getAllAppelOffres();
+        model.addAttribute("user", user);
         model.addAttribute("appelOffres", appelOffres);
         return "responsable/appel-offres/appels-offres";
     }

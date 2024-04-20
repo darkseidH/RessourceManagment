@@ -22,6 +22,21 @@
 
 </head>
 
+<style>
+    .warning-message {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        padding: .75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+        font-size: 1.2em;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+
 <body id="page-top">
 
 <!-- Page Wrapper -->
@@ -284,7 +299,7 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Dashboard</h1>
+                <h1>Constats</h1>
                 <div class="card shadow mb-4">
                     <div class="card-body">
                         <form th:action="@{/responsable/constats/modifier}" method="post" th:object="${panne}">
@@ -293,13 +308,13 @@
                             <div class="form-group">
                                 <label for="date-app">Date</label>
                                 <input type="date" class="form-control" id="date-app" name="date_apparition"
-                                       th:field="*{dateApparition}" required>
+                                       th:value="${#dates.format(panne.dateApparition, 'yyyy-MM-dd')}" disabled>
                             </div>
 
                             <div class="form-group">
                                 <label for="explication">Explication</label>
                                 <textarea id="explication" name="explication" class="form-control"
-                                          th:field="*{explication}"></textarea>
+                                          th:field="*{explication}" disabled></textarea>
                             </div>
 
                             <div class="form-group">
@@ -307,24 +322,7 @@
                                 <input type="text" id="frequence" name="frequence" class="form-control"
                                        th:field="*{frequence}" disabled>
                             </div>
-
-                            <div class="form-group">
-                                <label for="demander-changer">Demande de Changement</label>
-                                <select id="demander-changer" name="demander_changer" class="form-control"
-                                        th:field="*{demanderChanger}">
-                                    <option value="true">True</option>
-                                    <option value="false">False</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="demander-reparer">Demande de Réparation</label>
-                                <select id="demander-reparer" name="demander_reparer" class="form-control"
-                                        th:field="*{demanderReparer}">
-                                    <option value="true">True</option>
-                                    <option value="false">False</option>
-                                </select>
-                            </div>
+                            <!---->
 
                             <div class="form-group">
                                 <label for="ordre">Ordre</label>
@@ -332,7 +330,32 @@
                                        th:field="*{ordre}" disabled>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <div th:if="${!garantie}" class="my-5 text-center d-flex flex-column align-items-center">
+                                <span class="warning-message">Date de fin garantie est passé pour ce materiel!</span>
+                                <a th:href="@{/responsable/constats}" class="btn btn-primary mt-3">Go Back</a>
+                            </div>
+
+                            <!-- ... -->
+                            <div th:if="${garantie}">
+                                <div class="form-group">
+                                    <label for="demander-changer">Demande de Changement</label>
+                                    <select id="demander-changer" name="demander_changer" class="form-control"
+                                            th:field="*{demanderChanger}">
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="demander-reparer">Demande de Réparation</label>
+                                    <select id="demander-reparer" name="demander_reparer" class="form-control"
+                                            th:field="*{demanderReparer}">
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
+                                    </select>
+                                </div>
+                                <button style="text-align: center" type="submit" class="btn btn-primary">Submit</button>
+                            </div>
                         </form>
                     </div>
                 </div>

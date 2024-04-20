@@ -6,15 +6,15 @@ import com.ressourcemanagement.service.DepartementService;
 import com.ressourcemanagement.service.EnseignantService;
 import com.ressourcemanagement.service.ImprimanteService;
 import com.ressourcemanagement.service.OrdinateurService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller("/enseignant")
-@AllArgsConstructor
+@PreAuthorize("hasRole('ROLE_ENSEIGNANT')")
 public class EnseignantController {
     private static final String USER_OBJECT = "user";
     @Autowired

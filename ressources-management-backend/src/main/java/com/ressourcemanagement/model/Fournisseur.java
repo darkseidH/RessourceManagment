@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,15 +29,17 @@ public class Fournisseur extends User implements UserDetails {
     private String nomBoss;
     private String prenomBoss;
     private String lieu;
-    private boolean isblackListed;
+    @ColumnDefault("false")
+    private boolean isBlackListed;
     private String nomSociete;
     private String siteInternet;
+    private String motifBlackList;
     @OneToMany(mappedBy = "fournisseur")
     private List<Soumission> soumissions;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> getRole().name());
+        return List.of(() -> "ROLE_" + getRole().name());
     }
 
     @Override
@@ -51,7 +54,7 @@ public class Fournisseur extends User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return isblackListed;
+        return isBlackListed;
     }
 
     @Override

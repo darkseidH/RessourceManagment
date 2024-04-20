@@ -309,18 +309,19 @@
                     <div class="card-body">
                         <h1>Apple Offre</h1>
                         <div class="form-group">
-                            <label for="date-app">Date Debut</label>
-                            <input type="date" class="form-control" id="date-app" name="date_apparition"
-                                   th:value="${appelOffre.getDateDebut()}" disabled>
+                            <label for="date-deb">Date Debut</label>
+                            <input type="date" class="form-control" id="date-deb" name="date_debut"
+                                   th:value="${#dates.format(appelOffre.dateDebut, 'yyyy-MM-dd')}" disabled>
                         </div>
 
                         <div class="form-group">
-                            <label for="explication">Explication</label>
-                            <textarea id="explication" name="explication" class="form-control"
-                                      th:value="${appelOffre.getDateFin()}" disabled></textarea>
+                            <label for="date-fin">Explication</label>
+                            <input type="date" id="date-fin" name="date_fin" class="form-control"
+                                   th:value="${#dates.format(appelOffre.dateFin, 'yyyy-MM-dd')}" disabled>
                         </div>
                         <h1>List des Ressources</h1>
                         <div th:each="ressource : ${listesRessources}" class="resource-item">
+                            <p class="detail"><strong>Marque:</strong> <span th:text="${ressource.marque}"></span></p>
                             <div th:if="${ressource instanceof T(com.ressourcemanagement.model.Ordinateur)}"
                                  class="computer-details">
                                 <p class="detail"><strong>CPU:</strong> <span th:text="${ressource.cpu}"></span></p>

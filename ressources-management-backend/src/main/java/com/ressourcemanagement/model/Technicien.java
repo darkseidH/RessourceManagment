@@ -23,7 +23,7 @@ public class Technicien extends User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> getRole().name());
+        return List.of(() -> "ROLE_" + getRole().name());
     }
 
     @Override
