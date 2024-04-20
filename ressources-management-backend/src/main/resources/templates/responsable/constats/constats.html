@@ -31,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/home}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/static}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -286,54 +286,43 @@
 
                 <h1>Dashboard</h1>
                 <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                    </div>
                     <div class="card-body">
-                        <form th:action="@{/responsable/constats/modifier}" method="post" th:object="${panne}">
-                            <input type="hidden" name="id" th:field="*{id}">
-
-                            <div class="form-group">
-                                <label for="date-app">Date</label>
-                                <input type="date" class="form-control" id="date-app" name="date_apparition"
-                                       th:field="*{dateApparition}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="explication">Explication</label>
-                                <textarea id="explication" name="explication" class="form-control"
-                                          th:field="*{explication}"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="frequence">Frequence</label>
-                                <input type="text" id="frequence" name="frequence" class="form-control"
-                                       th:field="*{frequence}" disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="demander-changer">Demande de Changement</label>
-                                <select id="demander-changer" name="demander_changer" class="form-control"
-                                        th:field="*{demanderChanger}">
-                                    <option value="true">True</option>
-                                    <option value="false">False</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="demander-reparer">Demande de Réparation</label>
-                                <select id="demander-reparer" name="demander_reparer" class="form-control"
-                                        th:field="*{demanderReparer}">
-                                    <option value="true">True</option>
-                                    <option value="false">False</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="ordre">Ordre</label>
-                                <input type="text" id="ordre" name="ordre" class="form-control"
-                                       th:field="*{ordre}" disabled>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Explication</th>
+                                    <th>Date Apparution</th>
+                                    <th>Fréquence</th>
+                                    <th>Order</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${panneList.isEmpty()}">
+                                    <td colspan="4"> Pas de Pannes!</td>
+                                </tr>
+                                <!--/*@thymesVar id="pannes" type=""*/-->
+                                <tr th:each="panne : ${panneList}">
+                                    <td th:text="${panne.getExplication()}"></td>
+                                    <td th:text="${panne.getDateApparition()}"></td>
+                                    <td th:text="${panne.getFrequence()}"></td>
+                                    <td th:text="${panne.getOrdre()}"></td>
+                                    <td>
+                                        <a th:href="@{/responsable/constats/{id}(id=${panne.getId()})}"
+                                           class="btn btn-primary">Voir</a>
+                                        <a
+                                                th:href="@{/responsable/constats/modifier/{id}(id=${panne.id})}"
+                                                class="btn btn-warning">Modifier</a>
+                                    </td>
+                                    <!-- Add more cells as needed for other Panne properties -->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 

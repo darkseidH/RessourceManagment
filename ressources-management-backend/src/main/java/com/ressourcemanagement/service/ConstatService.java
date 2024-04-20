@@ -37,7 +37,7 @@ public class ConstatService {
         return panneDTO;
     }
 
-    public void updateConstat(Panne panne) {
+    public void updateConstat(PanneDTO panne) {
         Panne existingPanne = panneRepository.findById(panne.getId()).orElse(null);
         if (existingPanne != null) {
             existingPanne.setDateApparition(panne.getDateApparition());

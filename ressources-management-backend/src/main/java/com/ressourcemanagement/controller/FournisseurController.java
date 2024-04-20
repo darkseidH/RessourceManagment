@@ -4,6 +4,7 @@ import com.ressourcemanagement.model.AppelOffre;
 import com.ressourcemanagement.model.User;
 import com.ressourcemanagement.service.FournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,19 +15,18 @@ import java.util.Date;
 import java.util.List;
 
 @Controller("/fournisseur")
+@PreAuthorize("hasRole('ROLE_FOURNISSEUR')")
 public class FournisseurController {
     private static final String USER_OBJECT = "user";
     @Autowired
     private FournisseurService fournisseurService;
 
-    //    @GetMapping("/fournisseur")
-//    public String getHomeFournisseur(Model model, @AuthenticationPrincipal User user) {
-////        String userName = userDetails.getUsername();
-//        String nom = user.getNom();
-//        Boolean fournisseur = fournisseurService.existFournisseur(nom);
-//        model.addAttribute(USER_OBJECT, user);
-//        return "fournisseur/home";
-//    }
+    @GetMapping("/fournisseur")
+    public String getHomeFournisseur(Model model, @AuthenticationPrincipal User user) {
+        model.addAttribute(USER_OBJECT, user);
+        return "/fournisseur/home";
+    }
+
     @PostMapping("/add")
     public String addUser(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("user", user);
