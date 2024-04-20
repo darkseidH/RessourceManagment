@@ -31,87 +31,53 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/home}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/enseignant}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">
-                <span th:text="${user.getRole()}">
+                <span th:text="${isChef ? 'Chef de Département' : 'Enseignant'}">
                 </span>
             </div>
         </a>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Interface
-        </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Components</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="buttons.html">Buttons</a>
-                    <a class="collapse-item" href="cards.html">Cards</a>
+        <!-- Vérifie si l'utilisateur est un chef de département -->
+        <th:block th:if="${isChef}">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                   aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Chef de Département</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" th:href="@{/Notification/AjouterNotificationDEBesions}">Envoyer les besoins</a>
+                        <a class="collapse-item" th:href="@{/chefDepartement/besionsDepartement}">Besoins</a>
+                    </div>
                 </div>
-            </div>
-        </li>
-
-
-        <!-- Divider -->
+            </li>
+        </th:block>
         <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Addons
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Chef de Departement</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" th:href="@{/Notification/AjouterNotificationDEBesions}">Envoyer les besoins</a>
-                    <a class="collapse-item" th:href="@{/chefDepartement/besionsDepartement}">Besions</a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" th:href="@{/enseignant/RessourcesEnseignant}">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
+                <span>Ressources</span></a>
         </li>
-
-        <!-- Nav Item - Tables -->
+        <hr class="sidebar-divider">
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
+            <a class="nav-link" th:href="@{/enseignant}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Besoins</span></a>
+        </li>
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/enseignant/ajouterNewRessource}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Ajouter Besoin</span></a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-        <!-- Sidebar Message -->
 
 
     </ul>

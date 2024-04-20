@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Ressources</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -40,7 +40,6 @@
                 </span>
             </div>
         </a>
-
 
 
 
@@ -79,7 +78,6 @@
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Ajouter Besoin</span></a>
         </li>
-
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
@@ -253,7 +251,7 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Besoins</h1>
+                <h1>Ressources</h1>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Ordinateurs</h6>
@@ -269,7 +267,7 @@
                                     <th>Disk</th>
                                     <th>écran</th>
                                     <th>Ram</th>
-                                    <th>utilisé par le déparetement</th>
+                                    <th>code bare</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -284,12 +282,10 @@
                                     <td th:text="${ordinateur.getDisk()}"></td>
                                     <td th:text="${ordinateur.getEcran()}"></td>
                                     <td th:text="${ordinateur.getRam()}"></td>
-                                    <td th:text="${ordinateur.getDepartement() != null ? 'oui' : 'non'}"></td>
+                                    <td th:text="${ordinateur.getBarCode()}"></td>
                                     <td>
-                                        <a th:href="@{/enseignant/ordinateur/{id}/edit(id=${ordinateur.getId()})}"
-                                           class="btn btn-warning">Modifier</a>
-                                        <a th:href="@{/enseignant/ordinateur/{id}/delete(id=${ordinateur.getId()})}"
-                                           class="btn btn-danger">Supprimer</a>
+                                        <a th:href="@{/panne/signalerPanne/{id}/ordinateur(id=${ordinateur.getId()})}"
+                                           class="btn btn-warning">SignalerPanne</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -307,8 +303,8 @@
                                     <th>Enseignant</th>
                                     <th>Marque</th>
                                     <th>resolution</th>
-                                    <th>vitesseImpression</th>
-                                    <th>utilisé par le déparetement</th>
+                                    <th>vitesse Impression</th>
+                                    <th>code bare</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -321,12 +317,10 @@
                                     <td th:text="${imprimante.getMarque()}"></td>
                                     <td th:text="${imprimante.getResolution()}"></td>
                                     <td th:text="${imprimante.getVitesseImpression()}"></td>
-                                    <td th:text="${imprimante.getDepartement() != null ? 'oui' : 'non'}"></td>
+                                    <td th:text="${imprimante.getBarCode()}"></td>
                                     <td>
-                                        <a th:href="@{/enseignant/imprimante/{id}/edit(id=${imprimante.getId()})}"
-                                           class="btn btn-warning">Modifier</a>
-                                        <a th:href="@{/enseignant/imprimante/{id}/delete(id=${imprimante.getId()})}"
-                                           class="btn btn-danger">Supprimer</a>
+                                        <a th:href="@{/panne/signalerPanne/{id}/imprimante(id=${imprimante.getId()})}"
+                                           class="btn btn-warning">SignalerPanne</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -334,9 +328,7 @@
                         </div>
                     </div>
 
-                    <div class="card-footer py-3">
-                        <a th:href="@{/enseignant/ajouterNewRessource}" class="btn btn-primary">Ajouter Besoin</a>
-                    </div>
+
                 </div>
             </div>
             <!-- /.container-fluid -->

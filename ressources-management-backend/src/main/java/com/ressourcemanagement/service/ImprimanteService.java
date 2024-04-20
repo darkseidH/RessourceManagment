@@ -43,7 +43,6 @@ public class ImprimanteService {
             imprimanteToUpdate.setId(imprimante.getId());
             imprimanteToUpdate.setMarque(imprimante.getMarque());
             imprimanteToUpdate.setDepartement(imprimante.getDepartement());
-            imprimanteToUpdate.setEnseignant(imprimante.getEnseignant());
             imprimanteToUpdate.setStatus(imprimante.getStatus());
             imprimanteToUpdate.setVitesseImpression(imprimante.getVitesseImpression());
             imprimanteToUpdate.setResolution(imprimante.getResolution());
@@ -53,5 +52,9 @@ public class ImprimanteService {
 
     public void deleteImprimant(Long id) {
         imprimanteRepository.deleteById(id);
+    }
+
+    public List<Imprimante> getAllImprimantAffecterEnsignant(Long id) {
+        return imprimanteRepository.findAllByStatusAndEnseignant(RessourceStatus.AFFECTE_APRES_LIVRAISON, enseignantService.getEnsignatById(id));
     }
 }
