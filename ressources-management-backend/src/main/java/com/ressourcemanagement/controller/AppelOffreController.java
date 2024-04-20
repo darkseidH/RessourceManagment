@@ -1,9 +1,11 @@
 package com.ressourcemanagement.controller;
 
+import com.ressourcemanagement.enumeration.RessourceStatus;
 import com.ressourcemanagement.model.AppelOffre;
 import com.ressourcemanagement.model.RessourceMaterielle;
 import com.ressourcemanagement.model.User;
 import com.ressourcemanagement.service.AppelOffreService;
+import com.ressourcemanagement.service.RessourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +21,8 @@ import java.util.List;
 public class AppelOffreController {
     @Autowired
     private AppelOffreService appelOffreService;
+    Autowired
+    private RessourcesService ressourceMaterielleService;
 
     @GetMapping("/responsable/appel-offres")
     public String getAllAppelOffres(Model model, @AuthenticationPrincipal User user) {
@@ -36,6 +40,22 @@ public class AppelOffreController {
         model.addAttribute("listesRessources", ressourceMaterielles);
         model.addAttribute("user", user);
         return "responsable/appel-offres/show-ressources";
+    }
+
+    @GetMapping("/responsable/appel-offres/{id}/delete")
+    public String deleteAppelOffre(@PathVariable("id") long id, @AuthenticationPrincipal User user) {
+        appelOffreService.deleteAppelOffre(id);
+        return "redirect:/responsable/appel-offres?deleted-successfully";
+    }
+
+    @GetMapping("/responsable/appel-offres/add")
+    public String addAppelOffre(Model model, @AuthenticationPrincipal User user) {
+        AppelOffre appelOffre = new AppelOffre();
+        List<RessourceMaterielle> ressourceMaterielles = ressourceMaterielleService.findAllRessoucesByStatus(RessourceStatus.CREE_PAR_ENSEIGNANT);
+        model.addAttribute("appelOffre", appelOffre);
+        model.addAttribute("ressources", ressourceMaterielles);
+        model.addAttribute("user", user);
+        return "/responsable/appel-offres/ajoout-appel-offre";
     }
 
 

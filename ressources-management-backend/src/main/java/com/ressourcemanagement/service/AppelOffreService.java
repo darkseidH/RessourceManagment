@@ -24,4 +24,12 @@ public class AppelOffreService {
     public AppelOffre getAppelOffreById(long id) {
         return appelOffreRepository.findById(id).orElse(null);
     }
+
+    public void saveAppelOffre(AppelOffre appelOffre) {
+        appelOffreRepository.save(appelOffre);
+    }
+
+    public void deleteAppelOffre(long id) {
+        appelOffreRepository.deleteById(id);
+    }
 }
