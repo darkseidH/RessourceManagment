@@ -25,6 +25,8 @@ public class NotificationController {
     private ImprimanteService imprimanteService;
     @Autowired
     private OrdinateurService ordinateurService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/Notification/AjouterNotificationDEBesions")
     public String ajouterNotificationDEBesions(Model model, @AuthenticationPrincipal User user) {
@@ -44,5 +46,15 @@ public class NotificationController {
         boolean isChef = departementService.getDebartementbyIdChef(id);
         model.addAttribute("isChef", isChef);
         return "enseignant/home";
+    }
+
+    @GetMapping("/Notifications/deleteAll")
+    public String deleteAllNotifications(@AuthenticationPrincipal User user) {
+        List<Notification> notifications = user.getNotifications();
+        if (notifications != null) {
+            notificationService.deleteAll(notifications);
+        }
+        user.setNotifications(null);
+        return "redirect:/";
     }
 }
