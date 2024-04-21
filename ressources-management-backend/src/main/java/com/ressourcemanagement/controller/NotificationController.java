@@ -1,12 +1,7 @@
 package com.ressourcemanagement.controller;
 
-import com.ressourcemanagement.model.Departement;
-import com.ressourcemanagement.model.Enseignant;
-import com.ressourcemanagement.model.Notification;
-import com.ressourcemanagement.model.User;
-import com.ressourcemanagement.service.DepartementService;
-import com.ressourcemanagement.service.EnseignantService;
-import com.ressourcemanagement.service.NotificationService;
+import com.ressourcemanagement.model.*;
+import com.ressourcemanagement.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,6 +21,12 @@ public class NotificationController {
     private EnseignantService enseignantService;
     @Autowired
     private DepartementService departementService;
+    @Autowired
+    private ImprimanteService imprimanteService;
+    @Autowired
+    private OrdinateurService ordinateurService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/Notification/AjouterNotificationDEBesions")
     public String ajouterNotificationDEBesions(Model model, @AuthenticationPrincipal User user) {
@@ -36,9 +37,24 @@ public class NotificationController {
             Notification notification = Notification.builder().user(enseignant).content("il faut envoyer votre Besoins").isReaded(false).build();
             notificationService.saveNotification(notification);
         }
+
         Long id = user.getId();
+        List<Imprimante> imprimantes = imprimanteService.getAllImprimantCreeParEnsignant(id);
+        List<Ordinateur> ordinateurs = ordinateurService.getAllOrdinateurCreeParEnsignant(id);
+        model.addAttribute("imprimantes", imprimantes);
+        model.addAttribute("ordinateurs", ordinateurs);
         boolean isChef = departementService.getDebartementbyIdChef(id);
         model.addAttribute("isChef", isChef);
         return "enseignant/home";
+    }
+
+    @GetMapping("/Notifications/deleteAll")
+    public String deleteAllNotifications(@AuthenticationPrincipal User user) {
+        List<Notification> notifications = user.getNotifications();
+        if (notifications != null) {
+            notificationService.deleteAll(notifications);
+        }
+        user.setNotifications(null);
+        return "redirect:/";
     }
 }

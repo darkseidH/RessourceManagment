@@ -24,7 +24,7 @@
 
 
     <!-- Formulaire pour les PC -->
-    <form id="pcForm" th:action="@{/enseignant/saveRessourceMaterielle}" th:object="${ressourceMaterielle}" method="POST" style="display: none;">
+    <form id="pcForm" th:action="@{/enseignant/saveOrdinateur}" th:object="${ordinateur}" method="POST" style="display: none;">
         <div class="form-group">
             <label for="pcMarque">Marque:</label>
             <input type="text" th:field="*{marque}" id="pcMarque" name="marque" placeholder="Marque" class="form-control mb-4 col-4">
@@ -45,12 +45,20 @@
             <label for="pcEcran">Ecran:</label>
             <input type="text" th:field="*{ecran}" id="pcEcran" name="ecran" placeholder="Ecran" class="form-control mb-4 col-4">
         </div>
+        <!-- Ajouter la sélection pour "Utilisé par le département" -->
+        <div class="form-group" th:if="${isChef}">
+            <label for="departementUsage1">Utilisé par le département:</label>
+            <select id="departementUsage1" name="departementUsage" class="form-control mb-4 col-4">
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-info col-2"> Save PC</button>
     </form>
 
 
     <!-- Formulaire pour les imprimantes -->
-    <form id="imprimanteForm" action="/enseignant/saveRessourceMaterielle" th:object="${ressourceMaterielle}" method="POST" style="display: none;">
+    <form id="imprimanteForm" th:action="@{/enseignant/saveImprimante}" th:object="${imprimante}" method="POST" style="display: none;">
         <div class="form-group">
             <label for="imprimanteMarque">Marque:</label>
             <input type="text" th:field="*{marque}" id="imprimanteMarque" name="marque" placeholder="Marque" class="form-control mb-4 col-4">
@@ -62,6 +70,14 @@
         <div class="form-group">
             <label for="imprimanteResolution">Résolution:</label>
             <input type="text" th:field="*{resolution}" id="imprimanteResolution" name="resolution" placeholder="Résolution" class="form-control mb-4 col-4">
+        </div>
+        <!-- Ajouter la sélection pour "Utilisé par le département" -->
+        <div class="form-group" th:if="${isChef}">
+            <label for="departementUsage">Utilisé par le département:</label>
+            <select id="departementUsage" name="departementUsage" class="form-control mb-4 col-4">
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-info col-2"> Save Imprimante</button>
     </form>

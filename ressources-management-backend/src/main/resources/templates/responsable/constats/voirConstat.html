@@ -36,7 +36,7 @@
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">
-                <span th:text="${user.getRole()}">
+                <span th:text="${user.role}">
                 </span>
             </div>
         </a>
@@ -290,7 +290,7 @@
                         <div class="form-group">
                             <label for="date-app">Date</label>
                             <input type="date" class="form-control" id="date-app" name="date_apparition"
-                                   th:value="${panne.dateApparition}" disabled>
+                                   th:value="${#dates.format(panne.dateApparition, 'yyyy-MM-dd')}" disabled>
                         </div>
 
                         <div class="form-group">

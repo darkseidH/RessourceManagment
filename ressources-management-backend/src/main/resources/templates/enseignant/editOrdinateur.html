@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Modifier Imprimante</title>
+    <title>Modifier Ordinateur</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -42,7 +42,8 @@
         </a>
 
 
-        <!-- Nav Item - Pages Collapse Menu -->
+
+
         <!-- Vérifie si l'utilisateur est un chef de département -->
         <th:block th:if="${isChef}">
             <li class="nav-item">
@@ -79,6 +80,13 @@
         </li>
 
 
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+        <!-- Sidebar Message -->
+
 
     </ul>
     <!-- End of Sidebar -->
@@ -96,9 +104,9 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Modifier Imprimante</h1>
+                <h1>Modifier Ordinateur</h1>
 
-                <form th:action="@{/chefDepartement/imprimante/{id}/edit(id=${imprimante.id})}" th:object="${imprimante}" method="post" class="needs-validation" novalidate>
+                <form th:action="@{/enseignant/ordinateur/{id}/edit(id=${ordinateur.id})}" th:object="${ordinateur}" method="post" class="needs-validation" novalidate>
                     <div class="form-group">
                         <label for="marque">Marque</label>
                         <input type="text" th:field="*{marque}" class="form-control" id="marque" required>
@@ -107,44 +115,36 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="resolution">Resolution</label>
-                        <input type="text" th:field="*{resolution}" class="form-control" id="resolution" required>
+                        <label for="cpu">CPU</label>
+                        <input type="text" th:field="*{cpu}" class="form-control" id="cpu" required>
                         <div class="invalid-feedback">
-                            Please provide a resolution.
+                            Please provide a CPU.
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="vitesseImpression">Vitesse d'impression</label>
-                        <input type="text" th:field="*{vitesseImpression}" class="form-control" id="vitesseImpression" required>
+                        <label for="disk">Disk</label>
+                        <input type="text" th:field="*{disk}" class="form-control" id="disk" required>
                         <div class="invalid-feedback">
-                            Please provide a printing speed.
+                            Please provide a Disk.
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="enseignant">Enseignant</label>
-                        <select th:field="*{enseignant.id}" class="form-control" id="enseignant">
-                            <option th:each="enseignant : ${enseignants}" th:value="${enseignant.id}" th:text="${enseignant.nom} + ' ' + ${enseignant.prenom}"></option>
-                        </select>
+                        <label for="ecran">Ecran</label>
+                        <input type="text" th:field="*{ecran}" class="form-control" id="ecran" required>
+                        <div class="invalid-feedback">
+                            Please provide an Ecran.
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Utilisé par le département</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="departementUtilise" id="oui" value="true" th:checked="${imprimante.departement != null}">
-                            <label class="form-check-label" for="oui">
-                                Oui
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="departementUtilise" id="non" value="false" th:checked="${imprimante.departement == null}">
-                            <label class="form-check-label" for="non">
-                                Non
-                            </label>
+                        <label for="ram">RAM</label>
+                        <input type="text" th:field="*{ram}" class="form-control" id="ram" required>
+                        <div class="invalid-feedback">
+                            Please provide a RAM.
                         </div>
                     </div>
 
                     <button class="btn btn-primary" type="submit">Submit form</button>
                 </form>
-
 
             </div>
             <!-- /.container-fluid -->

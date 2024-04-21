@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,6 +22,7 @@ public abstract class RessourceMaterielle {
     private int barCode;
     private String marque;
     private RessourceStatus status;
+    private Date date_fin_garantie;
     @ManyToOne
     @JoinColumn(name = "enseigant_id", nullable = true)
     private Enseignant enseignant;

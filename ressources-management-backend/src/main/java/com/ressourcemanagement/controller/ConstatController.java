@@ -6,9 +6,12 @@ import com.ressourcemanagement.enumeration.PanneFrequence;
 import com.ressourcemanagement.model.Ordinateur;
 import com.ressourcemanagement.model.Panne;
 import com.ressourcemanagement.model.User;
+import com.ressourcemanagement.model.*;
 import com.ressourcemanagement.service.ConstatService;
+import com.ressourcemanagement.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,25 +24,37 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
+@PreAuthorize("hasRole('ROLE_RESPONSABLE')")
 public class ConstatController {
     @Autowired
     private ConstatService constatService;
+    @Autowired
+    private NotificationService notificationService;
 
     @GetMapping("/responsable/constats")
     public String getAllConstats(Model model, @AuthenticationPrincipal User user) {
         List<Panne> panneList = constatService.getAllConstats();
         model.addAttribute("panneList", panneList);
-        model.addAttribute("user", user);
-        return "responsable/constat";
+        model.
+
+                addAttribute("user", user);
+        return "responsable/constats/constats";
     }
 
     @GetMapping("/responsable/constats/modifier/{id}")
     public String getConstat(@PathVariable(value = "id") long id, Model model, @AuthenticationPrincipal User user) {
         PanneDTO panne = constatService.getConstat(id);
-//        System.out.println(panne);
+        RessourceMaterielle ressourceMaterielle = panne.getRessources();
+        boolean garantie;
+        if (ressourceMaterielle.getDate_fin_garantie().before(new Date())) {
+            garantie = false;
+        } else {
+            garantie = true;
+        }
+        model.addAttribute("garantie", garantie);
         model.addAttribute("panne", panne);
         model.addAttribute("user", user);
-        return "responsable/editConstat";
+        return "responsable/constats/editConstat";
     }
 
     @InitBinder
@@ -49,19 +64,30 @@ public class ConstatController {
     }
 
     @PostMapping("/responsable/constats/modifier")
-    public String updateConstat(@ModelAttribute("panne") Panne panne) {
+    public String updateConstat(@ModelAttribute("panne") PanneDTO panne) {
         constatService.updateConstat(panne);
+//        Notification notification = Notification.builder()
+//                .content("Nouvelle panne qui concerne un materiel est arrivé " + panne.getRessources().getId())
+//                .user()
+//        notificationService.saveNotification();
         return "redirect:/responsable/constats?success";
     }
 
     @GetMapping("/responsable/constats/{id}")
     public String getConstatToVisualise(@PathVariable(value = "id") long id, Model model, @AuthenticationPrincipal User user) {
         PanneDTO panne = constatService.getConstat(id);
+        if (panne.getRessources() instanceof Ordinateur) {
+            RessourceMaterielle ressources = (Ordinateur) panne.getRessources();
+            model.addAttribute("ordinateur", ressources);
+        } else {
+            RessourceMaterielle ressources = (Imprimante) panne.getRessources();
+            model.addAttribute("imprimante", ressources);
+        }
         Ordinateur ordinateur = (Ordinateur) panne.getRessources();
         model.addAttribute("panne", panne);
         model.addAttribute("ordinateur", ordinateur);
         model.addAttribute("user", user);
-        return "responsable/voirConstat";
+        return "responsable/constats/voirConstat";
     }
 
 

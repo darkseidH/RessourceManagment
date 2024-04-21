@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Modifier Imprimante</title>
+    <title>Ressources</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -40,6 +40,7 @@
                 </span>
             </div>
         </a>
+
 
 
         <!-- Nav Item - Pages Collapse Menu -->
@@ -78,6 +79,12 @@
                 <span>Ajouter Besoin</span></a>
         </li>
 
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+        <!-- Sidebar Message -->
 
 
     </ul>
@@ -96,56 +103,85 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Modifier Imprimante</h1>
+                <h1>Ressources</h1>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Ordinateurs</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Enseignant</th>
+                                    <th>Marque</th>
+                                    <th>Cpu</th>
+                                    <th>Disk</th>
+                                    <th>écran</th>
+                                    <th>Ram</th>
+                                    <th>code bare</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${ordinateurs.isEmpty()}">
+                                    <td colspan="4"> Pas d'ordinateurs !</td>
+                                </tr>
+                                <tr th:each="ordinateur : ${ordinateurs}">
+                                    <td th:text="${ordinateur.getEnseignant().getNom()+' '+ ordinateur.getEnseignant().getPrenom()}"></td>
+                                    <td th:text="${ordinateur.getMarque()}"></td>
+                                    <td th:text="${ordinateur.getCpu()}"></td>
+                                    <td th:text="${ordinateur.getDisk()}"></td>
+                                    <td th:text="${ordinateur.getEcran()}"></td>
+                                    <td th:text="${ordinateur.getRam()}"></td>
+                                    <td th:text="${ordinateur.getBarCode()}"></td>
+                                    <td>
+                                        <a th:href="@{/panne/signalerPanne/{id}/ordinateur(id=${ordinateur.getId()})}"
+                                           class="btn btn-warning">SignalerPanne</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Imprimants</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Enseignant</th>
+                                    <th>Marque</th>
+                                    <th>resolution</th>
+                                    <th>vitesse Impression</th>
+                                    <th>code bare</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${imprimantes.isEmpty()}">
+                                    <td colspan="4"> Pas d'imprimants !</td>
+                                </tr>
+                                <tr th:each="imprimante : ${imprimantes}">
+                                    <td th:text="${imprimante.getEnseignant().getNom()+' '+ imprimante.getEnseignant().getPrenom()}"></td>
+                                    <td th:text="${imprimante.getMarque()}"></td>
+                                    <td th:text="${imprimante.getResolution()}"></td>
+                                    <td th:text="${imprimante.getVitesseImpression()}"></td>
+                                    <td th:text="${imprimante.getBarCode()}"></td>
+                                    <td>
+                                        <a th:href="@{/panne/signalerPanne/{id}/imprimante(id=${imprimante.getId()})}"
+                                           class="btn btn-warning">SignalerPanne</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                <form th:action="@{/chefDepartement/imprimante/{id}/edit(id=${imprimante.id})}" th:object="${imprimante}" method="post" class="needs-validation" novalidate>
-                    <div class="form-group">
-                        <label for="marque">Marque</label>
-                        <input type="text" th:field="*{marque}" class="form-control" id="marque" required>
-                        <div class="invalid-feedback">
-                            Please provide a marque.
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="resolution">Resolution</label>
-                        <input type="text" th:field="*{resolution}" class="form-control" id="resolution" required>
-                        <div class="invalid-feedback">
-                            Please provide a resolution.
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="vitesseImpression">Vitesse d'impression</label>
-                        <input type="text" th:field="*{vitesseImpression}" class="form-control" id="vitesseImpression" required>
-                        <div class="invalid-feedback">
-                            Please provide a printing speed.
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="enseignant">Enseignant</label>
-                        <select th:field="*{enseignant.id}" class="form-control" id="enseignant">
-                            <option th:each="enseignant : ${enseignants}" th:value="${enseignant.id}" th:text="${enseignant.nom} + ' ' + ${enseignant.prenom}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Utilisé par le département</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="departementUtilise" id="oui" value="true" th:checked="${imprimante.departement != null}">
-                            <label class="form-check-label" for="oui">
-                                Oui
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="departementUtilise" id="non" value="false" th:checked="${imprimante.departement == null}">
-                            <label class="form-check-label" for="non">
-                                Non
-                            </label>
-                        </div>
-                    </div>
 
-                    <button class="btn btn-primary" type="submit">Submit form</button>
-                </form>
-
-
+                </div>
             </div>
             <!-- /.container-fluid -->
 
