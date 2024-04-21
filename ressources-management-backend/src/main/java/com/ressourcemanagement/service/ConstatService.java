@@ -49,6 +49,7 @@ public class ConstatService {
             panneRepository.save(existingPanne);
         }
     }
+
     public void updatePanne(Panne panne) {
         Panne existingPanne = panneRepository.findById(panne.getId()).orElse(null);
         if (existingPanne != null) {

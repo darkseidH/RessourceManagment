@@ -1,6 +1,5 @@
 package com.ressourcemanagement.service;
 
-import com.ressourcemanagement.model.AppelOffre;
 import com.ressourcemanagement.model.Panne;
 import com.ressourcemanagement.model.Technicien;
 import com.ressourcemanagement.repository.PanneRepository;
@@ -17,11 +16,14 @@ public class TechnicienService {
     @Autowired
     private TechnicienRepository technicienRepository;
     private PanneRepository panneRepository;
+
     public List<Technicien> getAllTechnicien() {
         return technicienRepository.findAll();
     }
 
-    public List<Panne> getAllPanne() {return panneRepository.findAll() ;}
+    public List<Panne> getAllPanne() {
+        return panneRepository.findAll();
+    }
 
 
 }

@@ -42,10 +42,10 @@ public class PanneController {
 //            Notification notification = new Notification().builder().user(technicien).content(message).build();
 //            notificationService.saveNotification(notification);
 //        }
-  //      List<Imprimante> imprimantes = imprimanteService.getAllImprimantAffecterEnsignant(user.getId());
-  //      List<Ordinateur> ordinateurs = ordinateurService.getAllOrdinateurAffecterEnsignant(user.getId());
- //       model.addAttribute("imprimantes", imprimantes);
- //       model.addAttribute("ordinateurs", ordinateurs);
+    //      List<Imprimante> imprimantes = imprimanteService.getAllImprimantAffecterEnsignant(user.getId());
+    //      List<Ordinateur> ordinateurs = ordinateurService.getAllOrdinateurAffecterEnsignant(user.getId());
+    //       model.addAttribute("imprimantes", imprimantes);
+    //       model.addAttribute("ordinateurs", ordinateurs);
 
     @GetMapping("/panne/signalerPanne/{id}/imprimante")
     public String signalerPanneImprimante(@PathVariable("id") long id, Model model, @AuthenticationPrincipal User user) {
@@ -71,7 +71,7 @@ public class PanneController {
         return "enseignant/RessourcesEnseignant";
     }
 
-//    @GetMapping("/panne/signalerPanne/{id}/ordinateur")
+    //    @GetMapping("/panne/signalerPanne/{id}/ordinateur")
 //    public String signalerPanneOrdinateur(@PathVariable("id") long id , Model model, @AuthenticationPrincipal User user) {
 //        Ordinateur ordinateur = ordinateurService.getOrdinateurById(id);
 //        List<Technicien> techniciens = technicienService.getAllTechnicien();
@@ -129,16 +129,16 @@ public class PanneController {
 //    }
 
     @GetMapping("/panne/redigerConstat/{id}/imprimante")
-    public String redigerConstatImprimante(@PathVariable("id") long id , Model model, @AuthenticationPrincipal User user) {
+    public String redigerConstatImprimante(@PathVariable("id") long id, Model model, @AuthenticationPrincipal User user) {
 
         Imprimante imprimante = imprimanteService.getImprimanteById(id);
         Enseignant enseignant = enseignantService.getEnsignatById(user.getId());
 
-      //      Panne panne = new Panne().builder().ressources(ordinateur).technicien(technicien).build();
-      //      panneService.savePanne(panne);
+        //      Panne panne = new Panne().builder().ressources(ordinateur).technicien(technicien).build();
+        //      panneService.savePanne(panne);
 
 
-   //     List<Imprimante> imprimantes = imprimanteService.getImprimanteById(user.getId());
+        //     List<Imprimante> imprimantes = imprimanteService.getImprimanteById(user.getId());
 //        List<Ordinateur> ordinateurs = ordinateurService.getAllOrdinateurAffecterEnsignant(user.getId());
 //        model.addAttribute("imprimantes", imprimantes);
 //        model.addAttribute("ordinateurs", ordinateurs);
@@ -146,11 +146,6 @@ public class PanneController {
 
         return "technicien/ressourcePanne";
     }
-
-
-
-
-
 
 
 }

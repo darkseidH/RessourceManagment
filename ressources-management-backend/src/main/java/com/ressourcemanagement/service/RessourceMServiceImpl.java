@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RessourceMServiceImpl implements RessourceMService{
+public class RessourceMServiceImpl implements RessourceMService {
 
     @Autowired
     private RessouceMRepository ressouceMRepository;

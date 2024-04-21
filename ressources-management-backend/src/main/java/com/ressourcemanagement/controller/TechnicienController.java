@@ -1,7 +1,5 @@
 package com.ressourcemanagement.controller;
 
-import com.ressourcemanagement.model.AppelOffre;
-import com.ressourcemanagement.model.Panne;
 import com.ressourcemanagement.model.User;
 import com.ressourcemanagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.Date;
-import java.util.List;
-
 @Controller
 public class TechnicienController {
 
+    private static final String USER_OBJECT = "user";
     private TechnicienService technicienService;
     private PanneService panneService;
-    private static final String USER_OBJECT = "user";
     @Autowired
     private DepartementService departementService;
     @Autowired

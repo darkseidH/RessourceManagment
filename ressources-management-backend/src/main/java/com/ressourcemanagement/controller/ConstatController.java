@@ -1,12 +1,10 @@
 package com.ressourcemanagement.controller;
 
 import com.ressourcemanagement.dto.PanneDTO;
-import com.ressourcemanagement.enumeration.PaneOrder;
-import com.ressourcemanagement.enumeration.PanneFrequence;
 import com.ressourcemanagement.model.Ordinateur;
 import com.ressourcemanagement.model.Panne;
+import com.ressourcemanagement.model.RessourceMaterielle;
 import com.ressourcemanagement.model.User;
-import com.ressourcemanagement.model.*;
 import com.ressourcemanagement.service.ConstatService;
 import com.ressourcemanagement.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,11 +43,7 @@ public class ConstatController {
         PanneDTO panne = constatService.getConstat(id);
         RessourceMaterielle ressourceMaterielle = panne.getRessources();
         boolean garantie;
-        if (ressourceMaterielle.getDate_fin_garantie().before(new Date())) {
-            garantie = false;
-        } else {
-            garantie = true;
-        }
+        garantie = !ressourceMaterielle.getDate_fin_garantie().before(new Date());
         model.addAttribute("garantie", garantie);
         model.addAttribute("panne", panne);
         model.addAttribute("user", user);
@@ -77,10 +70,10 @@ public class ConstatController {
     public String getConstatToVisualise(@PathVariable(value = "id") long id, Model model, @AuthenticationPrincipal User user) {
         PanneDTO panne = constatService.getConstat(id);
         if (panne.getRessources() instanceof Ordinateur) {
-            RessourceMaterielle ressources = (Ordinateur) panne.getRessources();
+            RessourceMaterielle ressources = panne.getRessources();
             model.addAttribute("ordinateur", ressources);
         } else {
-            RessourceMaterielle ressources = (Imprimante) panne.getRessources();
+            RessourceMaterielle ressources = panne.getRessources();
             model.addAttribute("imprimante", ressources);
         }
         Ordinateur ordinateur = (Ordinateur) panne.getRessources();
