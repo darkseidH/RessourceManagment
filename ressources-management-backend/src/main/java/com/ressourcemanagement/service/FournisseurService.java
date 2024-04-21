@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class FournisseurService {
 
     @Autowired
     private FournisseurRepository fournisseurRepository;
-    private AppleOffreRepository appleOffreRepository;
+    @Autowired
+    private AppelOffreRepository appleOffreRepository;
 //    public boolean existFournisseur(String username) {
 //        return fournisseurRepository.existsFournisseurByEmail(username);
 //    }
