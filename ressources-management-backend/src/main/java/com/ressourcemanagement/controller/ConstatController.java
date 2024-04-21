@@ -40,11 +40,7 @@ public class ConstatController {
         PanneDTO panne = constatService.getConstat(id);
         RessourceMaterielle ressourceMaterielle = panne.getRessources();
         boolean garantie;
-        if (ressourceMaterielle.getDate_fin_garantie().before(new Date())) {
-            garantie = false;
-        } else {
-            garantie = true;
-        }
+        garantie = !ressourceMaterielle.getDate_fin_garantie().before(new Date());
         model.addAttribute("garantie", garantie);
         model.addAttribute("panne", panne);
         model.addAttribute("user", user);
@@ -71,10 +67,10 @@ public class ConstatController {
     public String getConstatToVisualise(@PathVariable(value = "id") long id, Model model, @AuthenticationPrincipal User user) {
         PanneDTO panne = constatService.getConstat(id);
         if (panne.getRessources() instanceof Ordinateur) {
-            RessourceMaterielle ressources = (Ordinateur) panne.getRessources();
+            RessourceMaterielle ressources = panne.getRessources();
             model.addAttribute("ordinateur", ressources);
         } else {
-            RessourceMaterielle ressources = (Imprimante) panne.getRessources();
+            RessourceMaterielle ressources = panne.getRessources();
             model.addAttribute("imprimante", ressources);
         }
         Ordinateur ordinateur = (Ordinateur) panne.getRessources();
