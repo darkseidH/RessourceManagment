@@ -76,7 +76,8 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed" data-target="#collapsePages"
+            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed"
+               data-target="#collapsePages"
                data-toggle="collapse" href="#">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Pages</span>
@@ -147,8 +148,9 @@
 
                         <div class="form-group">
                             <label for="explication">Explication</label>
-                            <textarea class="form-control" disabled id="explication"
-                                      name="explication" th:value="${panne.explication}"></textarea>
+                            <input class="form-control" disabled id="explication" name="explication"
+                                   th:value="${panne.explication}"
+                                   type="text">
                         </div>
 
                         <div class="form-group">
@@ -158,16 +160,24 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="barcode">Bar code</label>
+                            <input class="form-control" disabled id="barcode" name="barcode"
+                                   th:value="${ressource.barCode}" type="text">
+                        </div>
+
+                        <div class="form-group">
                             <label for="demander-changer">Demande de Changement</label>
-                            <select class="form-control" disabled id="demander-changer"
-                                    name="demander_changer" th:value="${panne.demanderChanger}">
+                            <select class="form-control" disabled id="demander-changer">
+                                <option th:selected="${panne.demanderChanger == true}" th:value="true">True</option>
+                                <option th:selected="${panne.demanderChanger == false}" th:value="false">False</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="demander-reparer">Demande de Réparation</label>
-                            <select class="form-control" disabled id="demander-reparer"
-                                    name="demander_reparer" th:value="${panne.demanderReparer}">
+                            <select class="form-control" disabled id="demander-reparer">
+                                <option th:selected="${panne.demanderReparer == true}" th:value="true">True</option>
+                                <option th:selected="${panne.demanderReparer == false}" th:value="false">False</option>
                             </select>
                         </div>
 
@@ -178,29 +188,63 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="cpu">CPU</label>
-                            <input class="form-control" disabled id="cpu" name="cpu"
-                                   th:value="${ordinateur.getCpu()}" type="text">
+                            <label for="marque">Marque</label>
+                            <input class="form-control" disabled id="marque" name="marque"
+                                   th:value="${ressource.marque}" type="text">
                         </div>
+
 
                         <div class="form-group">
-                            <label for="disk">Disk</label>
-                            <input class="form-control" disabled id="disk" name="disk"
-                                   th:value="${ordinateur.getDisk()}" type="text">
+                            <label for="date-garantie">Status</label>
+                            <input class="form-control" disabled id="date-garantie" name="date-garantie" th:value="${#dates.format(ressource.date_fin_garantie,'yyyy-MM-dd')}"
+                                   type="date">
                         </div>
 
-                        <div class="form-group">
-                            <label for="ecran">Ecran</label>
-                            <input class="form-control" disabled id="ecran" name="ecran"
-                                   th:value="${ordinateur.getEcran()}" type="text">
+
+                        <div th:if="${ressource instanceof T(com.ressourcemanagement.model.Ordinateur)}">
+                            <div class="form-group">
+                                <label for="cpu">CPU</label>
+                                <input class="form-control" disabled id="cpu" name="cpu" th:value="${ressource.cpu}"
+                                       type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="disk">Disk</label>
+                                <input class="form-control" disabled id="disk" name="disk" th:value="${ressource.disk}"
+                                       type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ecran">Ecran</label>
+                                <input class="form-control" disabled id="ecran" name="ecran"
+                                       th:value="${ressource.ecran}" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ram">RAM</label>
+                                <input class="form-control" disabled id="ram" name="ram" th:value="${ressource.ram}"
+                                       type="text">
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="ram">RAM</label>
-                            <input class="form-control" disabled id="ram" name="ram"
-                                   th:value="${ordinateur.getRam()}" type="text">
+                        <div th:if="${ressource instanceof T(com.ressourcemanagement.model.Imprimante)}">
+                            <div class="form-group">
+                                <label for="resolution">Resolution</label>
+                                <input class="form-control" disabled id="resolution" name="resolution"
+                                       th:value="${ressource.resolution}" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="vitesse">Vitesse Imprimante</label>
+                                <input class="form-control" disabled id="vitesse" name="vitesse"
+                                       th:value="${ressource.getVitesseImpression()}" type="text">
+                            </div>
                         </div>
 
+
+                    </div>
+                    <div class="my-5 text-center d-flex flex-column align-items-center">
+                        <a class="btn btn-primary" th:href="@{/responsable/constats}">Return back</a>
                     </div>
                 </div>
 

@@ -37,28 +37,6 @@ public class AppelOffreController {
         return "responsable/appel-offres/appels-offres";
     }
 
-    @GetMapping("/responsable/appel-offres/{id}/content")
-    public String getAllAppelOffreRessources(Model model, @PathVariable("id") long id, @AuthenticationPrincipal User user) {
-        AppelOffre appelOffre = appelOffreService.getAppelOffreById(id);
-        List<RessourceMaterielle> ressourceMaterielles = appelOffreService.getAppelOffreById(id).getRessources();
-        model.addAttribute("appelOffre", appelOffre);
-        model.addAttribute("listesRessources", ressourceMaterielles);
-        model.addAttribute("user", user);
-        return "responsable/appel-offres/show-ressources";
-    }
-
-    @GetMapping("/responsable/appel-offres/{id}/delete")
-    public String deleteAppelOffre(@PathVariable("id") long id, @AuthenticationPrincipal User user) {
-        appelOffreService.deleteAppelOffre(id);
-        return "redirect:/responsable/appel-offres?deleted-successfully";
-    }
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-    }
-
     @GetMapping("/responsable/appel-offres/add")
     public String addAppelOffre(Model model, @AuthenticationPrincipal User user) {
         AppelOffreDTO appelOffre = new AppelOffreDTO();
@@ -82,5 +60,56 @@ public class AppelOffreController {
         return "redirect:/responsable/appel-offres?added-successfully";
     }
 
+    @GetMapping("/responsable/appel-offres/{id}/content")
+    public String getAllAppelOffreRessources(Model model, @PathVariable("id") long id, @AuthenticationPrincipal User user) {
+        AppelOffre appelOffre = appelOffreService.getAppelOffreById(id);
+        List<RessourceMaterielle> ressourceMaterielles = appelOffreService.getAppelOffreById(id).getRessources();
+        model.addAttribute("appelOffre", appelOffre);
+        model.addAttribute("listesRessources", ressourceMaterielles);
+        model.addAttribute("user", user);
+        return "responsable/appel-offres/show-ressources";
+    }
 
+
+    @GetMapping("/responsable/appel-offres/{id}/modifier")
+    public String editAppelOffre(Model model, @PathVariable("id") long id, @AuthenticationPrincipal User user) {
+        AppelOffre appelOffre = appelOffreService.getAppelOffreById(id);
+        AppelOffreDTO appelOffreDTO = AppelOffreDTO.builder()
+                .id(appelOffre.getId())
+                .date_debut(appelOffre.getDateDebut())
+                .date_fin(appelOffre.getDateFin())
+                .build();
+        List<RessourceMaterielle> ressourceMaterielles =
+                ressourceMaterielleService.findAllRessoucesByStatus(RessourceStatus.ENVOYE_RESPONSABLE);
+        List<Ordinateur> ordinateurs =
+                ressourceMaterielles.stream().filter(r -> r instanceof Ordinateur && r.getAppelOffre() == null)
+                        .map(r -> (Ordinateur) r).toList();
+        List<Imprimante> imprimantes =
+                ressourceMaterielles.stream().filter(r -> r instanceof Imprimante && r.getAppelOffre() == null)
+                        .map(r -> (Imprimante) r).toList();
+        model.addAttribute("appeloffre", appelOffreDTO);
+        model.addAttribute("ordinateurs", ordinateurs);
+        model.addAttribute("imprimantes", imprimantes);
+        model.addAttribute("user", user);
+        return "/responsable/appel-offres/edit-appel-offre";
+    }
+
+    @PostMapping("/responsable/appel-offres/{id}/modifier")
+    public String editAppelOffre(AppelOffreDTO appelOffreDTO, @PathVariable("id") long id, @AuthenticationPrincipal User user) {
+        appelOffreService.editAppelOffre(appelOffreDTO, id);
+        return "redirect:/responsable/appel-offres?edited-successfully";
+    }
+
+
+    @GetMapping("/responsable/appel-offres/{id}/delete")
+    public String deleteAppelOffre(@PathVariable("id") long id, @AuthenticationPrincipal User user) {
+        appelOffreService.deleteAppelOffre(id);
+        return "redirect:/responsable/appel-offres?deleted-successfully";
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }
 }

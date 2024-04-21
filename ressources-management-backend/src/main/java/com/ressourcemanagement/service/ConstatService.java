@@ -3,7 +3,6 @@ package com.ressourcemanagement.service;
 import com.ressourcemanagement.dto.PanneDTO;
 import com.ressourcemanagement.model.Panne;
 import com.ressourcemanagement.repository.PanneRepository;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +15,7 @@ public class ConstatService {
 
     public List<Panne> getAllConstats() {
         List<Panne> panneList = panneRepository.findAll();
-        val filtredPanneList = panneList.stream().filter(panne -> !panne.isDemanderReparer() && !panne.isDemanderChanger()).toList();
-        return filtredPanneList;
+        return panneList.stream().filter(panne -> !panne.isDemanderReparer() && !panne.isDemanderChanger() && panne.getExplication() != null).toList();
     }
 
     public PanneDTO getConstat(Long id) {

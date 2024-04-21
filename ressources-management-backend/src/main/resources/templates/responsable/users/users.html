@@ -9,7 +9,7 @@
     <meta content="" name="description">
     <meta content="" name="author">
 
-    <title>Dashboard</title>
+    <title>Utilisaturs</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" type="text/css">
@@ -43,7 +43,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" th:href="@{/static}">
+            <a class="nav-link" th:href="@{/}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -83,7 +83,8 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed" data-target="#collapsePages"
+            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed"
+               data-target="#collapsePages"
                data-toggle="collapse" href="#">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Pages</span>
@@ -150,7 +151,10 @@
 
                 <h1>Users</h1>
                 <!-- DataTales Example -->
-                <a class="btn btn-success mb-2 ml-auto" th:href="@{/responsable/users/add}">Add New User</a>
+                <div style="display: flex;">
+                    <a class="btn btn-success mb-2" style="margin-left: auto;" th:href="@{/responsable/users/add}">Ajouter
+                        nouveau utilisateur</a>
+                </div>
 
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">

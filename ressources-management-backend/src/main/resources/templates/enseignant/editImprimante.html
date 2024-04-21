@@ -46,7 +46,8 @@
         <!-- Vérifie si l'utilisateur est un chef de département -->
         <th:block th:if="${isChef}">
             <li class="nav-item">
-                <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed" data-target="#collapsePages"
+                <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed"
+                   data-target="#collapsePages"
                    data-toggle="collapse" href="#">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Chef de Département</span>
@@ -99,7 +100,8 @@
                 <h1>Modifier Imprimante</h1>
 
                 <form class="needs-validation" method="post"
-                      novalidate th:action="@{/enseignant/imprimante/{id}/edit(id=${imprimante.id})}" th:object="${imprimante}">
+                      novalidate th:action="@{/enseignant/imprimante/{id}/edit(id=${imprimante.id})}"
+                      th:object="${imprimante}">
                     <div class="form-group">
                         <label for="marque">Marque</label>
                         <input class="form-control" id="marque" required th:field="*{marque}" type="text">

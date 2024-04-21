@@ -49,4 +49,27 @@ public class AppelOffreService {
             ressourceRepository.save(r);
         });
     }
+
+    public void editAppelOffre(AppelOffreDTO appelOffreDTO, long id) {
+        AppelOffre appelOffre = getAppelOffreById(id);
+        appelOffre.setDateDebut(appelOffreDTO.getDate_debut());
+        appelOffre.setDateFin(appelOffreDTO.getDate_fin());
+        List<Long> imprimanteIds = appelOffreDTO.getImprimanteIds();
+        List<Long> ordinateurIds = appelOffreDTO.getOrdinateurIds();
+        imprimanteIds.forEach(idImprimante -> {
+            ressourceRepository.findById(idImprimante).ifPresent(imprimante -> {
+                imprimante.setAppelOffre(appelOffre);
+                imprimante.setStatus(RessourceStatus.APPEL_OFFRE);
+                ressourceRepository.save(imprimante);
+            });
+        });
+        ordinateurIds.forEach(idOrdinateur -> {
+            ressourceRepository.findById(idOrdinateur).ifPresent(ordinateur -> {
+                ordinateur.setAppelOffre(appelOffre);
+                ordinateur.setStatus(RessourceStatus.APPEL_OFFRE);
+                ressourceRepository.save(ordinateur);
+            });
+        });
+        saveAppelOffre(appelOffre);
+    }
 }

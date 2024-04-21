@@ -15,7 +15,7 @@ import java.util.List;
 public class PanneController {
 
     @Autowired
-    EnseignantService enseignantService;
+    private EnseignantService enseignantService;
     @Autowired
     private ImprimanteService imprimanteService;
     @Autowired

@@ -1,10 +1,7 @@
 package com.ressourcemanagement.controller;
 
 import com.ressourcemanagement.dto.PanneDTO;
-import com.ressourcemanagement.model.Ordinateur;
-import com.ressourcemanagement.model.Panne;
-import com.ressourcemanagement.model.RessourceMaterielle;
-import com.ressourcemanagement.model.User;
+import com.ressourcemanagement.model.*;
 import com.ressourcemanagement.service.ConstatService;
 import com.ressourcemanagement.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +29,7 @@ public class ConstatController {
     public String getAllConstats(Model model, @AuthenticationPrincipal User user) {
         List<Panne> panneList = constatService.getAllConstats();
         model.addAttribute("panneList", panneList);
-        model.
-
-                addAttribute("user", user);
+        model.addAttribute("user", user);
         return "responsable/constats/constats";
     }
 
@@ -69,16 +64,15 @@ public class ConstatController {
     @GetMapping("/responsable/constats/{id}")
     public String getConstatToVisualise(@PathVariable(value = "id") long id, Model model, @AuthenticationPrincipal User user) {
         PanneDTO panne = constatService.getConstat(id);
+
+        RessourceMaterielle ressource;
         if (panne.getRessources() instanceof Ordinateur) {
-            RessourceMaterielle ressources = panne.getRessources();
-            model.addAttribute("ordinateur", ressources);
+            ressource = panne.getRessources();
         } else {
-            RessourceMaterielle ressources = panne.getRessources();
-            model.addAttribute("imprimante", ressources);
+            ressource = panne.getRessources();
         }
-        Ordinateur ordinateur = (Ordinateur) panne.getRessources();
+        model.addAttribute("ressource", ressource);
         model.addAttribute("panne", panne);
-        model.addAttribute("ordinateur", ordinateur);
         model.addAttribute("user", user);
         return "responsable/constats/voirConstat";
     }

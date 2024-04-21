@@ -31,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/static}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -76,7 +76,8 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed" data-target="#collapsePages"
+            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed"
+               data-target="#collapsePages"
                data-toggle="collapse" href="#">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Pages</span>
@@ -136,10 +137,10 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Dashboard</h1>
+                <h1>Constats</h1>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Liste des contstats</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -159,10 +160,10 @@
                                 </tr>
                                 <!--/*@thymesVar id="pannes" type=""*/-->
                                 <tr th:each="panne : ${panneList}">
-                                    <td th:text="${panne.getExplication()}"></td>
-                                    <td th:text="${panne.getDateApparition()}"></td>
-                                    <td th:text="${panne.getFrequence()}"></td>
-                                    <td th:text="${panne.getOrdre()}"></td>
+                                    <td th:text="${panne.explication}"></td>
+                                    <td th:text="${#dates.format(panne.dateApparition, 'yyyy-MM-dd')}"></td>
+                                    <td th:text="${panne.frequence}"></td>
+                                    <td th:text="${panne.ordre}"></td>
                                     <td>
                                         <a class="btn btn-primary"
                                            th:href="@{/responsable/constats/{id}(id=${panne.getId()})}">Voir</a>

@@ -9,7 +9,7 @@
     <meta content="" name="description">
     <meta content="" name="author">
 
-    <title>Appels-Offres</title>
+    <title>Constat</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" type="text/css">
@@ -21,6 +21,21 @@
     <link rel="stylesheet" th:href="@{/styles/css/sb-admin-2.min.css}">
 
 </head>
+
+<style>
+    .warning-message {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        padding: .75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+        font-size: 1.2em;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
 
 <body id="page-top">
 
@@ -137,51 +152,69 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Appel offres</h1>
+                <h1>Modifier appel offre</h1>
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Liste des appels offres</h6>
-                    </div>
+                    <p class="error-message text-center text-danger" th:text="${errorMessage}"></p>
                     <div class="card-body">
-                        <div class="text-right">
-                            <a class="btn btn-primary mb-3" th:href="@{/responsable/appel-offres/add}">Ajouter nouvelle
-                                appel d'offre</a>
-                        </div>
+                        <form method="post" th:action="@{/responsable/appel-offres/{id}/modifier(id=${appeloffre.id})}"
+                              th:object="${appeloffre}">
 
-                        <div class="table-responsive">
-                            <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>Date Debut</th>
-                                    <th>Date Fin</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:if="${appelOffres.isEmpty()}">
-                                    <td colspan="4"> Pas d'appels d'offres!</td>
-                                </tr>
-                                <!--/*@thymesVar id="pannes" type=""*/-->
-                                <tr th:each="appelOffre : ${appelOffres}">
-                                    <td th:text="${#dates.format(appelOffre.getDateDebut(), 'yyyy-MM-dd')}"></td>
-                                    <td th:text="${#dates.format(appelOffre.getDateFin(), 'yyyy-MM-dd')}"></td>
-                                    <td>
-                                        <div class="d-flex justify-content-center mb-3">
-                                            <a class="btn btn-primary mr-2"
-                                               th:href="@{/responsable/appel-offres/{id}/content(id=${appelOffre.getId()})}">Voir</a>
-                                            <a class="btn btn-danger mr-2"
-                                               th:href="@{/responsable/appel-offres/{id}/modifier(id=${appelOffre.getId()})}">Modifier</a>
-                                            <a class="btn btn-warning"
-                                               th:href="@{/responsable/appel-offres/{id}/delete(id=${appelOffre.getId()})}">Supprimer</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                            <input th:field="*{id}" type="hidden">
+
+                            <div class="my-5 text-center d-flex flex-column align-items-center"
+                                 th:if="${appeloffre.date_fin < #calendars.createNow().time}">
+                                <span class="warning-message">Date de fin de l'appel d'offre est passé</span>
+                                <a class="btn btn-primary" th:href="@{/responsable/appel-offres}">Return back</a>
+                            </div>
+
+                            <div th:unless="${appeloffre.date_fin < #calendars.createNow().time}">
+                                <!-- Your form goes here -->
+                                <div class="form-group">
+                                    <label for="date-deb">Date debut</label>
+                                    <input class="form-control" id="date-deb" name="date_debut" required
+                                           th:field="*{date_debut}"
+                                           th:value="${appeloffre.date_debut}" type="date">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="date-fin">Date Fin</label>
+                                    <input class="form-control" id="date-fin" name="date_fin" required
+                                           th:field="*{date_fin}"
+                                           th:value="${appeloffre.date_fin}" type="date">
+                                </div>
+
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ordinateurs</h6>
+                                </div>
+
+                                <div class="card-body">
+                                    <input id="ordinateurs-ids" name="ordinateurIds" th:field="*{ordinateurIds}"
+                                           type="hidden">
+                                    <select class="form-control" id="ordinateurs-select" multiple name="ordinateur">
+                                        <option th:each="ordinateur : ${ordinateurs}" th:text="${ordinateur.marque}"
+                                                th:value="${ordinateur.id}"></option>
+                                    </select>
+
+                                </div>
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Imprimantes</h6>
+                                </div>
+
+                                <div class="card-body">
+                                    <input id="imprimante-ids" name="imprimanteIds" th:field="*{imprimanteIds}"
+                                           type="hidden">
+                                    <select class="form-control" id="imprimante-select" multiple name="imprimante">
+                                        <option th:each="imprimante : ${imprimantes}" th:text="${imprimante.marque}"
+                                                th:value="${imprimante.id}"></option>
+                                    </select>
+                                    <div class="card-body d-flex justify-content-center align-items-center">
+                                        <input class="btn btn-primary text-center" type="submit" value="Submit">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
             </div>
             <!-- /.container-fluid -->
 
@@ -209,6 +242,16 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
+<script>
+    document.getElementById('imprimante-select').addEventListener('change', function () {
+        var selected = Array.from(this.selectedOptions).map(option => option.value);
+        document.getElementById('imprimante-ids').value = selected.join(',');
+    });
+    document.getElementById('ordinateurs-select').addEventListener('change', function () {
+        var selected = Array.from(this.selectedOptions).map(option => option.value);
+        document.getElementById('ordinateurs-ids').value = selected.join(',');
+    });
+</script>
 
 <!-- Bootstrap core JavaScript-->
 <script th:src="@{/styles/vendor/jquery/jquery.min.js}" type="text/javascript"></script>
