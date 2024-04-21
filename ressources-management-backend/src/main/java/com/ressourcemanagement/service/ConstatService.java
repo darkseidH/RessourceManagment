@@ -37,7 +37,7 @@ public class ConstatService {
         return panneDTO;
     }
 
-    public void updateConstat(Panne panne) {
+    public void updateConstat(PanneDTO panne) {
         Panne existingPanne = panneRepository.findById(panne.getId()).orElse(null);
         if (existingPanne != null) {
             existingPanne.setDateApparition(panne.getDateApparition());
@@ -48,5 +48,19 @@ public class ConstatService {
             existingPanne.setOrdre(panne.getOrdre());
             panneRepository.save(existingPanne);
         }
+    }
+    public void updatePanne(Panne panne) {
+        Panne existingPanne = panneRepository.findById(panne.getId()).orElse(null);
+        if (existingPanne != null) {
+            existingPanne.setDateApparition(panne.getDateApparition());
+            existingPanne.setFrequence(panne.getFrequence());
+            existingPanne.setExplication(panne.getExplication());
+            existingPanne.setOrdre(panne.getOrdre());
+            panneRepository.save(existingPanne);
+        }
+    }
+
+    public List<Panne> getConstatsWithoutDateOrExplication() {
+        return panneRepository.findAllByDateApparitionIsNullOrExplicationIsNull();
     }
 }

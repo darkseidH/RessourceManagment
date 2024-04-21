@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Constat</title>
+    <title>Panne</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/home}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -44,69 +44,33 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Interface
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Components</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="buttons.html">Buttons</a>
-                    <a class="collapse-item" href="cards.html">Cards</a>
-                </div>
-            </div>
-        </li>
 
 
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Addons
-        </div>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>
-                    <a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>
-                </div>
-            </div>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
         </li>
 
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/technicien/pannes}">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>pannes</span></a>
         </li>
 
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/technicien/constats}">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Constats</span></a>
         </li>
 
         <!-- Divider -->
@@ -284,56 +248,43 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Dashboard</h1>
+<!--                <h1>Liste des Pannes</h1>-->
                 <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h3 class="m-0 font-weight-bold text-primary">Liste des Pannes</h3>
+                    </div>
                     <div class="card-body">
-                        <form th:action="@{/responsable/constats/modifier}" method="post" th:object="${panne}">
-                            <input type="hidden" name="id" th:field="*{id}">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Type de Ressource</th>
+                                    <th>Enseignant</th>
+                                    <th>Département</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${panneList.isEmpty()}">
+                                    <td colspan="4"> Pas de Pannes!</td>
+                                </tr>
+                                <!--/*@thymesVar id="pannes" type=""*/-->
+                                <tr th:each="panne : ${panneList}">
+                                    <td th:text="${panne.ressources.getClass().getSimpleName()}"></td>
+<!--                                    <td th:text="${panne.getRessources().getEnseignant().getNom()}"></td>-->
+                                    <td th:text="${panne.ressources.enseignant.nom + ' ' + panne.ressources.enseignant.prenom}"></td>
+                                    <td th:text="${panne.ressources.getEnseignant().getDepartement().nom}"></td>
+                                    <td>
 
-                            <div class="form-group">
-                                <label for="date-app">Date</label>
-                                <input type="date" class="form-control" id="date-app" name="date_apparition"
-                                       th:field="*{dateApparition}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="explication">Explication</label>
-                                <textarea id="explication" name="explication" class="form-control"
-                                          th:field="*{explication}"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="frequence">Frequence</label>
-                                <input type="text" id="frequence" name="frequence" class="form-control"
-                                       th:field="*{frequence}" disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="demander-changer">Demande de Changement</label>
-                                <select id="demander-changer" name="demander_changer" class="form-control"
-                                        th:field="*{demanderChanger}">
-                                    <option value="true">True</option>
-                                    <option value="false">False</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="demander-reparer">Demande de Réparation</label>
-                                <select id="demander-reparer" name="demander_reparer" class="form-control"
-                                        th:field="*{demanderReparer}">
-                                    <option value="true">True</option>
-                                    <option value="false">False</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="ordre">Ordre</label>
-                                <input type="text" id="ordre" name="ordre" class="form-control"
-                                       th:field="*{ordre}" disabled>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                                        <a
+                                                th:href="@{/technicien/pannes/modifier/{id}(id=${panne.id})}"
+                                                class="btn btn-primary">Rédiger Constat</a>
+                                    </td>
+                                    <!-- Add more cells as needed for other Panne properties -->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 

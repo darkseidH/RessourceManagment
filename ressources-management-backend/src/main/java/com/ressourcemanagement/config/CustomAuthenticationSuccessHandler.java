@@ -18,14 +18,18 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("RESPONSABLE")) {
+            if (grantedAuthority.getAuthority().equals("ROLE_RESPONSABLE")) {
                 response.sendRedirect("/responsable");
                 break;
-            } else if (grantedAuthority.getAuthority().equals("ENSEIGNANT")) {
+            } else if (grantedAuthority.getAuthority().equals("ROLE_ENSEIGNANT")) {
                 response.sendRedirect("/enseignant");
                 break;
-            } else if (grantedAuthority.getAuthority().equals("TECHNICIEN")) {
+            } else if (grantedAuthority.getAuthority().equals("ROLE_TECHNICIEN")) {
                 response.sendRedirect("/technicien");
+                break;
+            } else if (grantedAuthority.getAuthority().equals("ROLE_FOURNISSEUR")) {
+                response.sendRedirect("/fournisseur");
+                break;
             } else {
                 throw new IllegalStateException();
             }

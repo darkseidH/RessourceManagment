@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter nouvelle ressource</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <h1>Ajouter Demande d'Achat</h1>
+    <hr>
+
+    <!-- Ajout d'une liste déroulante pour choisir entre PC et imprimante -->
+    <div class="form-group">
+        <label for="resourceType">Choisir le type de ressource:</label>
+        <select class="form-control" id="resourceType" onchange="showForm()">
+            <option disabled selected hidden>Choisir le type de ressource</option>
+            <option value="pc">PC</option>
+            <option value="imprimante">Imprimante</option>
+        </select>
+    </div>
+
+
+    <!-- Formulaire pour les PC -->
+    <form id="pcForm" th:action="@{/enseignant/saveOrdinateur}" th:object="${ordinateur}" method="POST" style="display: none;">
+        <div class="form-group">
+            <label for="pcMarque">Marque:</label>
+            <input type="text" th:field="*{marque}" id="pcMarque" name="marque" placeholder="Marque" class="form-control mb-4 col-4">
+        </div>
+        <div class="form-group">
+            <label for="pcCPU">CPU:</label>
+            <input type="text" th:field="*{cpu}" id="pcCPU" name="cpu" placeholder="CPU" class="form-control mb-4 col-4">
+        </div>
+        <div class="form-group">
+            <label for="pcRAM">RAM:</label>
+            <input type="text" th:field="*{ram}" id="pcRAM" name="ram" placeholder="RAM" class="form-control mb-4 col-4">
+        </div>
+        <div class="form-group">
+            <label for="pcDisqueDur">Disque dur:</label>
+            <input type="text" th:field="*{disk}" id="pcDisqueDur" name="disk" placeholder="Disque dur" class="form-control mb-4 col-4">
+        </div>
+        <div class="form-group">
+            <label for="pcEcran">Ecran:</label>
+            <input type="text" th:field="*{ecran}" id="pcEcran" name="ecran" placeholder="Ecran" class="form-control mb-4 col-4">
+        </div>
+        <!-- Ajouter la sélection pour "Utilisé par le département" -->
+        <div class="form-group" th:if="${isChef}">
+            <label for="departementUsage1">Utilisé par le département:</label>
+            <select id="departementUsage1" name="departementUsage" class="form-control mb-4 col-4">
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-info col-2"> Save PC</button>
+    </form>
+
+
+    <!-- Formulaire pour les imprimantes -->
+    <form id="imprimanteForm" th:action="@{/enseignant/saveImprimante}" th:object="${imprimante}" method="POST" style="display: none;">
+        <div class="form-group">
+            <label for="imprimanteMarque">Marque:</label>
+            <input type="text" th:field="*{marque}" id="imprimanteMarque" name="marque" placeholder="Marque" class="form-control mb-4 col-4">
+        </div>
+        <div class="form-group">
+            <label for="imprimanteVitesse">Vitesse d'impression:</label>
+            <input type="text" th:field="*{vitesseImpression}" id="imprimanteVitesse" name="vitesseImpression" placeholder="Vitesse d'impression" class="form-control mb-4 col-4">
+        </div>
+        <div class="form-group">
+            <label for="imprimanteResolution">Résolution:</label>
+            <input type="text" th:field="*{resolution}" id="imprimanteResolution" name="resolution" placeholder="Résolution" class="form-control mb-4 col-4">
+        </div>
+        <!-- Ajouter la sélection pour "Utilisé par le département" -->
+        <div class="form-group" th:if="${isChef}">
+            <label for="departementUsage">Utilisé par le département:</label>
+            <select id="departementUsage" name="departementUsage" class="form-control mb-4 col-4">
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-info col-2"> Save Imprimante</button>
+    </form>
+
+
+    <hr>
+
+    <a th:href="@{/}">Retour</a>
+</div>
+
+<!-- Script JavaScript pour afficher le formulaire approprié en fonction du choix de l'utilisateur -->
+<script>
+    function showForm() {
+        var resourceType = document.getElementById("resourceType").value;
+        if (resourceType === "pc") {
+            document.getElementById("pcForm").style.display = "block";
+            document.getElementById("imprimanteForm").style.display = "none";
+        } else if (resourceType === "imprimante") {
+            document.getElementById("pcForm").style.display = "none";
+            document.getElementById("imprimanteForm").style.display = "block";
+        }
+    }
+</script>
+
+</body>
+
+</html>

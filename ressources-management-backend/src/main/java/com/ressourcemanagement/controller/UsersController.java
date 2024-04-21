@@ -6,6 +6,7 @@ import com.ressourcemanagement.model.User;
 import com.ressourcemanagement.service.DepartementService;
 import com.ressourcemanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
+@PreAuthorize("hasRole('ROLE_RESPONSABLE')")
 public class UsersController {
     @Autowired
     private UserService userService;
@@ -28,7 +30,7 @@ public class UsersController {
         List<User> filtredList = userList.stream().filter(u -> u.getRole() != UsersRoles.RESPONSABLE).toList();
         model.addAttribute("user", user);
         model.addAttribute("userList", filtredList);
-        return "responsable/users";
+        return "responsable/users/users";
     }
 
     @GetMapping("/responsable/users/{id}/delete")
@@ -42,7 +44,7 @@ public class UsersController {
         User user_to_modify = userService.getUser(id);
         model.addAttribute("user_to_modify", user_to_modify);
         model.addAttribute("user", user);
-        return "responsable/editUser";
+        return "responsable/users/editUser";
     }
 
     @PostMapping("/responsable/users/{id}/edit")
@@ -57,7 +59,7 @@ public class UsersController {
         model.addAttribute("user_to_add", user_to_add);
         model.addAttribute("departements", departementService.getAllDepartements());
         model.addAttribute("user", user);
-        return "responsable/addUser";
+        return "responsable/users/addUser";
     }
 
     @PostMapping("/responsable/users/add")

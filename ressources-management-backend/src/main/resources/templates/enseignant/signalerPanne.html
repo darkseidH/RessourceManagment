@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Signaler une Panne</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <h1>Signaler Panne</h1>
+    <hr>
+
+    <form action="/enseignant/savePanne" method="POST">
+
+        <select  class="form-control mb-4 col-4">
+            <option value="PC">PC</option>
+            <option value="Imprimante">Imprimante</option>
+        </select>
+
+        <input type="date" id="datePicker" name="date_apparition" class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2">Signaler Panne</button>
+
+    </form>
+
+
+
+    <hr>
+
+    <a th:href="@{/}">Retour</a>
+</div>
+</body>
+
+</html>
+
+
+
+

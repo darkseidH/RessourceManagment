@@ -31,7 +31,7 @@ public class chefDepartementController {
     @GetMapping("/chefDepartement/besionsDepartement")
     public String getBesionsDepartement(Model model, @AuthenticationPrincipal User user) {
         Long id = user.getId();
-        boolean isChef = departementService.getDebartementbyIdChef(id);
+        boolean isChef = departementService.getDebartementbyIdChef(user.getId());
         Departement departement = departementService.findDepartementByIdChef(id);
         List<Enseignant> enseignants = enseignantService.findAllByDepartement_Id(departement.getId());
         List<Imprimante> imprimantes = new ArrayList<Imprimante>();
@@ -44,6 +44,7 @@ public class chefDepartementController {
         }
         model.addAttribute("imprimantes", imprimantes);
         model.addAttribute("ordinateurs", ordinateurs);
+        model.addAttribute("isChef", isChef);
         model.addAttribute(USER_OBJECT, user);
         return "chefDepartement/BesionsChefDepartement";
     }
@@ -56,6 +57,8 @@ public class chefDepartementController {
         model.addAttribute("ordinateur", ordinateur);
         model.addAttribute("enseignants", enseignants);
         model.addAttribute(USER_OBJECT, user);
+        boolean isChef = departementService.getDebartementbyIdChef(user.getId());
+        model.addAttribute("isChef", isChef);
         return "chefDepartement/editOrdinateur";
     }
 
@@ -63,7 +66,7 @@ public class chefDepartementController {
     @PostMapping("/chefDepartement/ordinateur/{id}/edit")
     public String handleFormSubmission(@PathVariable("id") long id, @ModelAttribute("ordinateur") Ordinateur ordinateur, @RequestParam("departementUtilise") boolean departementUtilise, BindingResult result, Model model, @AuthenticationPrincipal User user) {
         Long idchef = user.getId();
-        boolean isChef = departementService.getDebartementbyIdChef(idchef);
+        boolean isChef = departementService.getDebartementbyIdChef(user.getId());
         model.addAttribute(USER_OBJECT, user);
         if (departementUtilise) {
             Departement departement = departementService.findDepartementByIdChef(idchef);
@@ -86,6 +89,7 @@ public class chefDepartementController {
         }
         model.addAttribute("imprimantes", imprimantes);
         model.addAttribute("ordinateurs", ordinateurs);
+        model.addAttribute("isChef", isChef);
         model.addAttribute(USER_OBJECT, user);
         return "chefDepartement/BesionsChefDepartement";
     }
@@ -124,6 +128,8 @@ public class chefDepartementController {
             List<Ordinateur> ordinateursEnseignant = ordinateurService.getAllOrdinateurCreeParEnsignant(enseignant.getId());
             ordinateurs.addAll(ordinateursEnseignant);
         }
+        boolean isChef = departementService.getDebartementbyIdChef(user.getId());
+        model.addAttribute("isChef", isChef);
         model.addAttribute("imprimantes", imprimantes);
         model.addAttribute("ordinateurs", ordinateurs);
         model.addAttribute(USER_OBJECT, user);
@@ -134,9 +140,11 @@ public class chefDepartementController {
     @GetMapping("/chefDepartement/imprimante/{id}/edit")
     public String editImprimante(@PathVariable("id") long id, Model model, @AuthenticationPrincipal User user) {
         Long idChef = user.getId();
-        Departement departement = departementService.findDepartementByIdChef(idChef);
+        Departement departement = departementService.findDepartementByIdChef(user.getId());
         Imprimante imprimante = imprimanteService.getImprimanteById(id);
         List<Enseignant> enseignants = enseignantService.findAllByDepartement_Id(departement.getId());
+        boolean isChef = departementService.getDebartementbyIdChef(id);
+        model.addAttribute("isChef", isChef);
         model.addAttribute("imprimante", imprimante);
         model.addAttribute("enseignants", enseignants);
         model.addAttribute(USER_OBJECT, user);
@@ -146,7 +154,7 @@ public class chefDepartementController {
     @PostMapping("/chefDepartement/imprimante/{id}/edit")
     public String handleFormSubmission(@PathVariable("id") long id, @ModelAttribute("imprimante") Imprimante imprimante, @RequestParam("departementUtilise") boolean departementUtilise, BindingResult result, Model model, @AuthenticationPrincipal User user) {
         Long idchef = user.getId();
-        boolean isChef = departementService.getDebartementbyIdChef(idchef);
+        boolean isChef = departementService.getDebartementbyIdChef(user.getId());
         model.addAttribute(USER_OBJECT, user);
         if (departementUtilise) {
             Departement departement = departementService.findDepartementByIdChef(idchef);
@@ -167,6 +175,7 @@ public class chefDepartementController {
             List<Ordinateur> ordinateursEnseignant = ordinateurService.getAllOrdinateurCreeParEnsignant(enseignant.getId());
             ordinateurs.addAll(ordinateursEnseignant);
         }
+        model.addAttribute("isChef", isChef);
         model.addAttribute("imprimantes", imprimantes);
         model.addAttribute("ordinateurs", ordinateurs);
         model.addAttribute(USER_OBJECT, user);
@@ -197,7 +206,7 @@ public class chefDepartementController {
         }
 
         Long id = user.getId();
-        boolean isChef = departementService.getDebartementbyIdChef(id);
+        boolean isChef = departementService.getDebartementbyIdChef(user.getId());
         model.addAttribute("isChef", isChef);
         model.addAttribute(USER_OBJECT, user);
         return "enseignant/home";

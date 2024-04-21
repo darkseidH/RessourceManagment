@@ -1,6 +1,7 @@
 package com.ressourcemanagement.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ressourcemanagement.enumeration.UsersRoles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,8 @@ public abstract class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Notification> notifications;
 
 }//end User
