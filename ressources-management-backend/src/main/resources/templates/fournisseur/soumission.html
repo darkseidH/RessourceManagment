@@ -13,9 +13,8 @@
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" type="text/css">
-    <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
+    <link th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i}"
+          rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link rel="stylesheet" th:href="@{/styles/css/sb-admin-2.min.css}">
@@ -36,8 +35,7 @@
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">
-                <span th:text="${user.getRole()}">
-                </span>
+                <span th:text="${user.getRole()}"></span>
             </div>
         </a>
 
@@ -255,7 +253,7 @@
                                 <span th:text="${user.getPrenom()}"></span>
                             </span>
                             <img class="img-profile rounded-circle"
-                                 src="img/undraw_profile.svg">
+                                 th:src="@{/img/undraw_profile.svg}">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div aria-labelledby="userDropdown"
@@ -288,68 +286,98 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Affichage des détails de l'appel d'offre -->
+            <div class="container">
                 <h1>Détails de l'appel d'offre</h1>
-                <p>Date de début : <span th:text="${appelOffre.dateDebut}"></span></p>
-                <p>Date de fin : <span th:text="${appelOffre.dateFin}"></span></p>
+                <!-- Affichage des détails de l'appel d'offre -->
+                <p>Date de début : <span th:text="${appeloffre.dateDebut}"></span></p>
+                <p>Date de fin : <span th:text="${appeloffre.dateFin}"></span></p>
 
-                <!-- Formulaire pour chaque matériel associé -->
-                <div th:each="material : ${appelOffre.ressources}">
-                    <form method="post" th:action="@{/fournisseur/soumission}">
-                        <input name="appelOffreId" th:value="${appelOffre.id}" type="hidden"/>
-                        <input name="materialId" th:value="${material.id}" type="hidden"/>
-                        <label>Date d'envoi pour le matériel <span th:text="${material.nom}"></span> :</label>
-                        <input name="dateEnvoi" type="date"/>
-                        <button class="btn btn-success" type="submit">Soumettre</button>
+                <!-- Boucle sur la liste des matériaux associés à l'appel d'offre -->
+                <div th:each="material : ${appeloffre.ressources}">
+                    <!-- Vérification du type de matériel -->
+                    <div th:if="${material.getType() == 'Imprimante'}">
+                        <!-- Affichage des détails d'une imprimante -->
+                        <h3>Imprimante</h3>
+                        <p>ID: <span th:text="${material.id}"></span></p>
+                        <p>Marque: <span th:text="${material.marque}"></span></p>
+                        <p>Résolution: <span th:text="${material.resolution}"></span></p>
+                        <p>Vitesse d'impression: <span th:text="${material.vitesseImpression}"></span></p>
+                    </div>
+                    <div th:if="${material.getType() == 'Ordinateur'}">
+                        <!-- Affichage des détails d'un ordinateur -->
+                        <h3>Ordinateur</h3>
+                        <p>ID: <span th:text="${material.id}"></span></p>
+                        <p>Marque: <span th:text="${material.marque}"></span></p>
+                        <p>CPU: <span th:text="${material.cpu}"></span></p>
+                        <p>Disque: <span th:text="${material.disk}"></span></p>
+                        <p>Écran: <span th:text="${material.ecran}"></span></p>
+                        <p>RAM: <span th:text="${material.ram}"></span></p>
+                    </div>
+                    <!-- Formulaire de soumission -->
+                    <form th:action="@{/fournisseur/soumission/{id}(id=${appeloffre.id})}" method="post" >
+                        <label for="dateLivraison">Date de livraison:</label><br>
+                        <input type="date" id="dateLivraison" name="dateLivraison"><br>
+
+                        <label for="dureeGarantie">Durée de garantie (en mois):</label><br>
+                        <input type="number" id="dureeGarantie" name="dureeGarantie"><br>
+
+                        <label for="prix">Prix:</label><br>
+                        <input type="number" id="prix" name="prix"><br>
+
+                        <!-- Champ caché pour l'ID de la ressource matérielle -->
+                        <input type="hidden" id="ressourceId" name="ressourceId" th:value="${material.id}">
+
+                        <!-- Champ caché pour l'ID du fournisseur -->
+                        <input type="hidden" id="fournisseurId" name="fournisseurId" th:value="${user.id}">
+
                     </form>
                 </div>
-
+                <form th:action="@{/fournisseur/soumission/{id}(id=${appeloffre.id})}" method="post">
+                    <!-- Champ caché pour envoyer la liste de soumissions au backend -->
+                    <input type="hidden" name="soumission" th:value="${soumissions}" />
+                <input class="btn btn-primary" type="submit" value="Soumettre">
+                </form>
             </div>
-            <!-- /.container-fluid -->
+
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; GL Project 2024</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; GL Project 2024</span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
+        <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Page Wrapper -->
 
-</div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
 
-<!-- Bootstrap core JavaScript-->
-<script th:src="@{/styles/vendor/jquery/jquery.min.js}" type="text/javascript"></script>
-<script th:src="@{/styles/vendor/bootstrap/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/styles/vendor/jquery/jquery.min.js}" type="text/javascript"></script>
+    <script th:src="@{/styles/vendor/bootstrap/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
 
-<!-- Core plugin JavaScript-->
-<script th:src="@{/styles/vendor/jquery-easing/jquery.easing.min.js}" type="text/javascript"></script>
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/styles/vendor/jquery-easing/jquery.easing.min.js}" type="text/javascript"></script>
 
-<!-- Custom scripts for all pages-->
-<script th:src="@{/styles/js/sb-admin-2.min.js}" type="text/javascript"></script>
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/styles/js/sb-admin-2.min.js}" type="text/javascript"></script>
 
-<!-- Page level plugins -->
-<script th:src="@{/styles/vendor/datatables/jquery.dataTables.min.js}" type="text/javascript"></script>
-<script th:src="@{/styles/vendor/datatables/dataTables.bootstrap4.min.js}" type="text/javascript"></script>
+    <!-- Page level plugins -->
+    <script th:src="@{/styles/vendor/datatables/jquery.dataTables.min.js}" type="text/javascript"></script>
+    <script th:src="@{/styles/vendor/datatables/dataTables.bootstrap4.min.js}" type="text/javascript"></script>
 
-<!-- Page level custom scripts -->
-<script th:src="@{/styles/js/demo/datatables-demo.js}" type="text/javascript"></script>
+    <!-- Page level custom scripts -->
+    <script th:src="@{/styles/js/demo/datatables-demo.js}" type="text/javascript"></script>
 
 
 </body>
