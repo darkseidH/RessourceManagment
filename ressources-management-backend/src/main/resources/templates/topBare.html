@@ -8,7 +8,7 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
-    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+    <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop">
         <i class="fa fa-bars"></i>
     </button>
 
@@ -23,15 +23,16 @@
 
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+               href="#" id="alertsDropdown" role="button">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter" id="nomberNotifications" th:text="${user.notifications != null ? user.notifications.size() : 0}"></span>
+                <span class="badge badge-danger badge-counter" id="nomberNotifications"
+                      th:text="${user.notifications != null ? user.notifications.size() : 0}"></span>
             </a>
             <!-- Dropdown - Alerts -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" id="NotificationAlert"
-                 aria-labelledby="alertsDropdown">
+            <div aria-labelledby="alertsDropdown" class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 id="NotificationAlert">
                 <h6 class="dropdown-header">
                     Alerts Center
                 </h6>
@@ -42,7 +43,8 @@
                         </div>
                     </a>
                 </div>
-                <a id="deleteNotifications"  class="dropdown-item text-center small text-gray-500" th:href="@{/Notifications/deleteAll}">supprimer tous les notifications</a>
+                <a class="dropdown-item text-center small text-gray-500" id="deleteNotifications"
+                   th:href="@{/Notifications/deleteAll}">supprimer tous les notifications</a>
             </div>
         </li>
 
@@ -52,8 +54,8 @@
 
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+               href="#" id="userDropdown" role="button">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                 <span th:text="${user.getNom()}"></span>
                                 <span th:text="${user.getPrenom()}"></span>
@@ -62,8 +64,8 @@
                      src="img/undraw_profile.svg">
             </a>
             <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                 aria-labelledby="userDropdown">
+            <div aria-labelledby="userDropdown"
+                 class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
                 <a class="dropdown-item" href="#">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
@@ -77,7 +79,7 @@
                     Activity Log
                 </a>
                 <a class="dropdown-item">
-                    <form th:action="@{/logout}" method="post">
+                    <form method="post" th:action="@{/logout}">
                         <button class="btn btn-link p-0 m-0 align-baseline" type="submit">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
                         </button>
@@ -87,23 +89,23 @@
         </li>
 
     </ul>
- <script type="text/javascript">
-     document.getElementById('deleteNotifications').addEventListener('click', function(event) {
-         event.preventDefault(); // Prevent the default action (navigation)
-         var xhr = new XMLHttpRequest(); // Create a new HTTP request
-         xhr.open('GET', '/Notifications/deleteAll'); // Specify the HTTP method and the URL
+    <script type="text/javascript">
+        document.getElementById('deleteNotifications').addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default action (navigation)
+            var xhr = new XMLHttpRequest(); // Create a new HTTP request
+            xhr.open('GET', '/Notifications/deleteAll'); // Specify the HTTP method and the URL
 
-         // Define what happens when the request is successful
-         xhr.onload = function() {
-             if (xhr.status === 200) {
-                 document.getElementById('NotificationAlert').innerHTML = ''; // Clear the notifications list in the UI
-                 document.getElementById('nomberNotifications').innerText = '0'; // Update the notifications count in the UI
-             }
-         };
+            // Define what happens when the request is successful
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById('NotificationAlert').innerHTML = ''; // Clear the notifications list in the UI
+                    document.getElementById('nomberNotifications').innerText = '0'; // Update the notifications count in the UI
+                }
+            };
 
-         xhr.send(); // Send the request
-     });
- </script>
+            xhr.send(); // Send the request
+        });
+    </script>
 </nav>
 </body>
 </html>

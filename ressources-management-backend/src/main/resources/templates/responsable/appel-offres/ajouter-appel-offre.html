@@ -22,21 +22,6 @@
 
 </head>
 
-<style>
-    .warning-message {
-        color: #721c24;
-        background-color: #f8d7da;
-        border-color: #f5c6cb;
-        padding: .75rem 1.25rem;
-        margin-bottom: 1rem;
-        border: 1px solid transparent;
-        border-radius: .25rem;
-        font-size: 1.2em;
-        font-weight: bold;
-        text-align: center;
-    }
-</style>
-
 <body id="page-top">
 
 <!-- Page Wrapper -->
@@ -46,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/home}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -151,67 +136,86 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Constats</h1>
+                <h1>Ajouter appel offre</h1>
                 <div class="card shadow mb-4">
+                    <p class="error-message text-center text-danger" th:text="${errorMessage}"></p>
                     <div class="card-body">
-                        <form method="post" th:action="@{/responsable/constats/modifier}" th:object="${panne}">
-                            <input name="id" th:field="*{id}" type="hidden">
-
+                        <form method="post" th:action="@{/responsable/appel-offres/add}" th:object="${appeloffre}">
                             <div class="form-group">
-                                <label for="date-app">Date</label>
-                                <input class="form-control" disabled id="date-app" name="date_apparition"
-                                       th:value="${#dates.format(panne.dateApparition, 'yyyy-MM-dd')}" type="date">
+                                <label for="date-deb">Date debut</label>
+                                <input class="form-control" id="date-deb" name="date_debut" required
+                                       th:field="*{date_debut}" type="date">
                             </div>
 
                             <div class="form-group">
-                                <label for="explication">Explication</label>
-                                <textarea class="form-control" disabled id="explication"
-                                          name="explication" th:field="*{explication}"></textarea>
+                                <label for="date-fin">Date Fin</label>
+                                <input class="form-control" id="date-fin" name="date_fin" required
+                                       th:field="*{date_fin}" type="date">
                             </div>
 
-                            <div class="form-group">
-                                <label for="frequence">Frequence</label>
-                                <input class="form-control" disabled id="frequence" name="frequence"
-                                       th:field="*{frequence}" type="text">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Imprimants</h6>
                             </div>
-                            <!---->
-
-                            <div class="form-group">
-                                <label for="ordre">Ordre</label>
-                                <input class="form-control" disabled id="ordre" name="ordre"
-                                       th:field="*{ordre}" type="text">
+                            <div class="table-responsive">
+                                <table cellspacing="0" class="table table-bordered" id="dataTable1" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Enseignant</th>
+                                        <th>Marque</th>
+                                        <th>Cpu</th>
+                                        <th>Disk</th>
+                                        <th>écran</th>
+                                        <th>Ram</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:if="${ordinateurs.isEmpty()}">
+                                        <td colspan="4"> Pas d'ordinateurs !</td>
+                                    </tr>
+                                    <tr th:each="ordinateur : ${ordinateurs}">
+                                        <td th:text="${ordinateur.getEnseignant().getNom()+' '+ ordinateur.getEnseignant().getPrenom()}"></td>
+                                        <td th:text="${ordinateur.getMarque()}"></td>
+                                        <td th:text="${ordinateur.getCpu()}"></td>
+                                        <td th:text="${ordinateur.getDisk()}"></td>
+                                        <td th:text="${ordinateur.getEcran()}"></td>
+                                        <td th:text="${ordinateur.getRam()}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
-                            <div class="my-5 text-center d-flex flex-column align-items-center" th:if="${!garantie}">
-                                <span class="warning-message">Date de fin garantie est passé pour ce materiel!</span>
-                                <a class="btn btn-primary mt-3" th:href="@{/responsable/constats}">Go Back</a>
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Imprimants</h6>
                             </div>
-
-                            <!-- ... -->
-                            <div th:if="${garantie}">
-                                <div class="form-group">
-                                    <label for="demander-changer">Demande de Changement</label>
-                                    <select class="form-control" id="demander-changer" name="demander_changer"
-                                            th:field="*{demanderChanger}">
-                                        <option value="true">True</option>
-                                        <option value="false">False</option>
-                                    </select>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Enseignant</th>
+                                            <th>Marque</th>
+                                            <th>resolution</th>
+                                            <th>vitesseImpression</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:if="${imprimantes.isEmpty()}">
+                                            <td colspan="4"> Pas d'imprimants !</td>
+                                        </tr>
+                                        <tr th:each="imprimante : ${imprimantes}">
+                                            <td th:text="${imprimante.getEnseignant().getNom()+' '+ imprimante.getEnseignant().getPrenom()}"></td>
+                                            <td th:text="${imprimante.getMarque()}"></td>
+                                            <td th:text="${imprimante.getResolution()}"></td>
+                                            <td th:text="${imprimante.getVitesseImpression()}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="demander-reparer">Demande de Réparation</label>
-                                    <select class="form-control" id="demander-reparer" name="demander_reparer"
-                                            th:field="*{demanderReparer}">
-                                        <option value="true">True</option>
-                                        <option value="false">False</option>
-                                    </select>
-                                </div>
-                                <button class="btn btn-primary" style="text-align: center" type="submit">Submit</button>
+                                <input class="btn btn-primary text-center" type="submit" value="Créer appel offre">
                             </div>
                         </form>
                     </div>
                 </div>
-
             </div>
             <!-- /.container-fluid -->
 

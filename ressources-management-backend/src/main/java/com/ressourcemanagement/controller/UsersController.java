@@ -36,7 +36,7 @@ public class UsersController {
     @GetMapping("/responsable/users/{id}/delete")
     public String deleteUser(@PathVariable("id") long id) {
         userService.deleteUser(id);
-        return "redirect:responsable/users/users?delete_success";
+        return "redirect:responsable/users?delete_success";
     }
 
     @GetMapping("/responsable/users/{id}/edit")
@@ -50,7 +50,7 @@ public class UsersController {
     @PostMapping("/responsable/users/{id}/edit")
     public String updateUser(@PathVariable("id") long id, UserDto user) {
         userService.updateUser(id, user);
-        return "redirect:/responsable/users/users?update_success";
+        return "redirect:/responsable/users?update_success";
     }
 
     @GetMapping("/responsable/users/add")
@@ -66,7 +66,7 @@ public class UsersController {
     public String addUser(UserDto user) {
         System.out.println(user.toString());
         userService.addUser(user);
-        return "redirect:/responsable/users/users?add_success";
+        return "redirect:/responsable/users?add_success";
     }
 
 }

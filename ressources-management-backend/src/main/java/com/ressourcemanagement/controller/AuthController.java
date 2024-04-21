@@ -55,7 +55,6 @@ public class AuthController {
 
     @PostMapping("/register-fournisseur")
     public String registerUser(UserDto userDto) {
-
         System.out.println(userDto.toString());
         userService.register(userDto);
         return "redirect:/login?success";

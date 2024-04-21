@@ -13,6 +13,7 @@ public class PanneService {
     @Autowired
     PanneRepository panneRepository;
 
+
     public void savePanne(Panne panne) {
         panneRepository.save(panne);
     }
