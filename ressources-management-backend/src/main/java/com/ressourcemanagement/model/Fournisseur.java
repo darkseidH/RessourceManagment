@@ -51,7 +51,7 @@ public class Fournisseur extends User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return isblackListed;
+        return !isblackListed;
     }
 
     @Override

@@ -284,39 +284,20 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Dashboard</h1>
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Date Debut</th>
-                                    <th>Date Fin</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:if="${filtredList.isEmpty()}">
-                                    <td colspan="4"> Pas d'Appel Offre!</td>
-                                </tr>
-                                <!--/*@thymesVar id="pannes" type=""*/-->
-                                <tr th:each="appelOffre : ${filtredList}">
-                                    <td th:text="${appelOffre.getDateDebut()}"></td>
-                                    <td th:text="${appelOffre.getDateFin()}"></td>
-                                    <td>
-                                        <a th:href="@{/fournisseur/appel-offres/{id}(id=${appelOffre.getId()})}"
-                                           class="btn btn-primary">Voir details</a>
-                                    </td>
-                                    <!-- Add more cells as needed for other Panne properties -->
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <!-- Affichage des détails de l'appel d'offre -->
+                <h1>Détails de l'appel d'offre</h1>
+                <p>Date de début : <span th:text="${appelOffre.dateDebut}"></span></p>
+                <p>Date de fin : <span th:text="${appelOffre.dateFin}"></span></p>
+
+                <!-- Formulaire pour chaque matériel associé -->
+                <div th:each="material : ${appelOffre.ressources}">
+                    <form th:action="@{/fournisseur/soumission}" method="post">
+                        <input type="hidden" name="appelOffreId" th:value="${appelOffre.id}"/>
+                        <input type="hidden" name="materialId" th:value="${material.id}"/>
+                        <label>Date d'envoi pour le matériel <span th:text="${material.nom}"></span> :</label>
+                        <input type="date" name="dateEnvoi"/>
+                        <button type="submit" class="btn btn-success">Soumettre</button>
+                    </form>
                 </div>
 
             </div>

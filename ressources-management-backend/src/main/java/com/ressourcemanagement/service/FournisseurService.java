@@ -18,11 +18,11 @@ public class FournisseurService {
     @Autowired
     private FournisseurRepository fournisseurRepository;
     private AppleOffreRepository appleOffreRepository;
-    public boolean existFournisseur(String username) {
-        return fournisseurRepository.existsFournisseurByEmail(username);
-    }
-    public Fournisseur getFournissuerByEmail(String username) {
-        return fournisseurRepository.getFournisseurByEmail(username);
+//    public boolean existFournisseur(String username) {
+//        return fournisseurRepository.existsFournisseurByEmail(username);
+//    }
+public Fournisseur getFournissuerByEmail(String username) {
+   return fournisseurRepository.getFournisseurByEmail(username);
     }
 
 
