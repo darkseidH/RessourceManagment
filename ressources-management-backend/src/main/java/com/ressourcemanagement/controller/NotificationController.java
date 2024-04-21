@@ -55,6 +55,7 @@ public class NotificationController {
             notificationService.deleteAll(notifications);
         }
         user.setNotifications(null);
+        userService.save(user);
         return "redirect:/";
     }
 }
