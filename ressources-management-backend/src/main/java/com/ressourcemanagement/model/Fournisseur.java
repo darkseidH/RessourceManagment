@@ -66,4 +66,6 @@ public class Fournisseur extends User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }//end Fournisseur

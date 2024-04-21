@@ -21,4 +21,8 @@ import lombok.experimental.SuperBuilder;
 public class Imprimante extends RessourceMaterielle {
     private int resolution;
     private double vitesseImpression;
+    @Override
+    public String getType() {
+        return "Imprimante";
+    }
 }//end Imprement

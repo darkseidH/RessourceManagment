@@ -22,4 +22,9 @@ public class Ordinateur extends RessourceMaterielle {
     private String disk;
     private String ecran;
     private String ram;
+
+    @Override
+    public String getType() {
+        return "Ordinateur";
+    }
 }//end Ordinateur
