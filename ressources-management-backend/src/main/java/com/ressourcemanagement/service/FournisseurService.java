@@ -25,7 +25,6 @@ public class FournisseurService {
         return fournisseurRepository.getFournisseurByEmail(username);
     }
 
-
     public List<AppelOffre> getAllAppleOffre(){
         return appleOffreRepository.findAll();
     }

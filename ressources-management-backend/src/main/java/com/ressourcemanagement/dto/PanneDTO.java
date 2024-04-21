@@ -25,5 +25,9 @@ public class PanneDTO {
     private PanneFrequence panneFrequence;
     private RessourceMaterielle ressources;
 
+    //imprimante
+    private int resolution;
+    private double vitesseImpression;
+
     // getters and setters
 }

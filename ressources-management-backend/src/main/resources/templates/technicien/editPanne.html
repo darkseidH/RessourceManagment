@@ -9,13 +9,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Panne</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
-    <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link th:href="@{/styles/css/sb-admin-2.min.css}" rel="stylesheet">
@@ -36,20 +35,9 @@
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">
-                <span th:text="${user.getRole()}">
-                </span>
+                <span th:text="${user.getRole()}"></span>
             </div>
         </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" th:href="@{/home}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -60,61 +48,32 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Components</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="buttons.html">Buttons</a>
-                    <a class="collapse-item" href="cards.html">Cards</a>
-                </div>
-            </div>
-        </li>
 
 
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Addons
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <!-- Vérifie si l'utilisateur est un chef de département -->
-        <th:block th:if="${isChef}">
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Chef de Département</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" th:href="@{/Notification/AjouterNotificationDEBesions}">Envoyer les besoins</a>
-                        <a class="collapse-item" th:href="@{/chefDepartement/besionsDepartement}">Besoins</a>
-                    </div>
-                </div>
-            </li>
-        </th:block>
-
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
         </li>
 
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/technicien/pannes}">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>pannes</span></a>
+        </li>
+
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/technicien/constats}">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Constats</span></a>
         </li>
 
         <!-- Divider -->
@@ -124,9 +83,6 @@
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
-
-        <!-- Sidebar Message -->
-
 
     </ul>
     <!-- End of Sidebar -->
@@ -146,8 +102,7 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                aria-label="Search" aria-describedby="basic-addon2">
@@ -292,26 +247,53 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Dashboard</h1>
+                <h1>Constat</h1>
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                    </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Marque</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
+<!--                        <form th:action="@{/technicien/pannes/{id}/modifier(id=${id})}" method="post" th:object="${panne}">-->
+<!--                            <div class="form-group">-->
+<!--                                <label for="explication">Explication</label>-->
+<!--                                <textarea id="explication" name="explication" class="form-control" th:field="*{explication}"></textarea>-->
+<!--                            </div>-->
+
+<!--                            <button type="submit" class="btn btn-primary">Envoyer au Responsable</button>-->
+<!--                        </form>-->
+
+                        <form th:action="@{/technicien/pannes/{id}/modifier(id=${id})}" method="post" th:object="${panne}">
+                            <div class="form-group">
+                                <label for="explication">Explication</label>
+                                <textarea id="explication" name="explication" class="form-control" th:field="*{explication}"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dateApparition">Date d'apparition</label>
+                                <input type="date" id="dateApparition" name="dateApparition" class="form-control" th:value="*{dateApparition}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="frequence">Fréquence</label>
+                                <select id="frequence" name="frequence" class="form-control" th:field="*{frequence}">
+                                    <option value="RARE">Rare</option>
+                                    <option value="PERMANANTE">Permanente</option>
+                                    <option value="FREQUENTE">Fréquente</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ordre">Ordre</label>
+                                <select id="ordre" name="ordre" class="form-control" th:field="*{ordre}">
+                                    <option value="LOGICIEL_UTIL">Logiciel/Utilitaire</option>
+                                    <option value="SYSTEM">Système</option>
+                                    <option value="MATERIEL">Matériel</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Envoyer au Responsable</button>
+                        </form>
+
+
+
+
                     </div>
                 </div>
 
@@ -351,14 +333,14 @@
 <script type="text/javascript" th:src="@{/styles/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
 <!-- Custom scripts for all pages-->
-<script type="text/javascript" th:src="@{/style/js/sb-admin-2.min.js}"></script>
+<script type="text/javascript" th:src="@{/styles/js/sb-admin-2.min.js}"></script>
 
 <!-- Page level plugins -->
 <script type="text/javascript" th:src="@{/styles/vendor/datatables/jquery.dataTables.min.js}"></script>
-<script type="text/javascript" th:src="@{/style/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+<script type="text/javascript" th:src="@{/styles/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
 
 <!-- Page level custom scripts -->
-<script type="text/javascript" th:src="@{/style/js/demo/datatables-demo.js}"></script>
+<script type="text/javascript" th:src="@{/styles/js/demo/datatables-demo.js}"></script>
 
 
 </body>
