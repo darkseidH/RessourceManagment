@@ -176,7 +176,7 @@ public class EnseignantController {
         model.addAttribute("ordinateurs", ordinateurs);
         boolean isChef = departementService.getDebartementbyIdChef(user.getId());
         model.addAttribute("isChef", isChef);
-        model.addAttribute(USER_OBJECT, user);
+        model.addAttribute(USER_OBJECT, user);///:dzt
         return "enseignant/home";
     }
 
