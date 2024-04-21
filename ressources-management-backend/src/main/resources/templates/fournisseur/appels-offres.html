@@ -4,21 +4,21 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
 
     <title>Constat</title>
 
     <!-- Custom fonts for this template-->
-    <link th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" type="text/css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link th:href="@{/styles/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/styles/css/sb-admin-2.min.css}">
 
 </head>
 
@@ -51,12 +51,12 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
+            <a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed" data-target="#collapseTwo"
+               data-toggle="collapse" href="#">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Components</span>
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Custom Components:</h6>
                     <a class="collapse-item" href="buttons.html">Buttons</a>
@@ -76,12 +76,12 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
+            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed" data-target="#collapsePages"
+               data-toggle="collapse" href="#">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Pages</span>
             </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div aria-labelledby="headingPages" class="collapse" data-parent="#accordionSidebar" id="collapsePages">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Login Screens:</h6>
                     <a class="collapse-item" href="login.html">Login</a>
@@ -124,7 +124,7 @@
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div class="d-flex flex-column" id="content-wrapper">
 
         <!-- Main Content -->
         <div id="content">
@@ -133,7 +133,7 @@
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                 <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop">
                     <i class="fa fa-bars"></i>
                 </button>
 
@@ -141,8 +141,8 @@
                 <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                               aria-label="Search" aria-describedby="basic-addon2">
+                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-light border-0 small"
+                               placeholder="Search for..." type="text">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button">
                                 <i class="fas fa-search fa-sm"></i>
@@ -156,18 +156,18 @@
 
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                     <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                           href="#" id="searchDropdown" role="button">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
                         <!-- Dropdown - Messages -->
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                             aria-labelledby="searchDropdown">
+                        <div aria-labelledby="searchDropdown"
+                             class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in">
                             <form class="form-inline mr-auto w-100 navbar-search">
                                 <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small"
-                                           placeholder="Search for..." aria-label="Search"
-                                           aria-describedby="basic-addon2">
+                                    <input aria-describedby="basic-addon2" aria-label="Search"
+                                           class="form-control bg-light border-0 small" placeholder="Search for..."
+                                           type="text">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="button">
                                             <i class="fas fa-search fa-sm"></i>
@@ -180,15 +180,15 @@
 
                     <!-- Nav Item - Alerts -->
                     <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                           href="#" id="alertsDropdown" role="button">
                             <i class="fas fa-bell fa-fw"></i>
                             <!-- Counter - Alerts -->
                             <span class="badge badge-danger badge-counter">3+</span>
                         </a>
                         <!-- Dropdown - Alerts -->
-                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="alertsDropdown">
+                        <div aria-labelledby="alertsDropdown"
+                             class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in">
                             <h6 class="dropdown-header">
                                 Alerts Center
                             </h6>
@@ -209,22 +209,22 @@
 
                     <!-- Nav Item - Messages -->
                     <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                           href="#" id="messagesDropdown" role="button">
                             <i class="fas fa-envelope fa-fw"></i>
                             <!-- Counter - Messages -->
                             <span class="badge badge-danger badge-counter">7</span>
                         </a>
                         <!-- Dropdown - Messages -->
-                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="messagesDropdown">
+                        <div aria-labelledby="messagesDropdown"
+                             class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in">
                             <h6 class="dropdown-header">
                                 Message Center
                             </h6>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                         alt="...">
+                                    <img alt="..." class="rounded-circle"
+                                         src="https://source.unsplash.com/Mv9hjnEUHR4/60x60">
                                     <div class="status-indicator bg-success"></div>
                                 </div>
                                 <div>
@@ -242,8 +242,8 @@
 
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                           href="#" id="userDropdown" role="button">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                 <span th:text="${user.getNom()}"></span>
                                 <span th:text="${user.getPrenom()}"></span>
@@ -252,8 +252,8 @@
                                  src="img/undraw_profile.svg">
                         </a>
                         <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
+                        <div aria-labelledby="userDropdown"
+                             class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
@@ -267,7 +267,7 @@
                                 Activity Log
                             </a>
                             <a class="dropdown-item">
-                                <form th:action="@{/logout}" method="post">
+                                <form method="post" th:action="@{/logout}">
                                     <button class="btn btn-link p-0 m-0 align-baseline" type="submit">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
                                     </button>
@@ -291,7 +291,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
                                 <thead>
                                 <tr>
                                     <th>Date Debut</th>
@@ -308,8 +308,8 @@
                                     <td th:text="${appelOffre.getDateDebut()}"></td>
                                     <td th:text="${appelOffre.getDateFin()}"></td>
                                     <td>
-                                        <a th:href="@{/fournisseur/appel-offres/{id}(id=${appelOffre.getId()})}"
-                                           class="btn btn-primary">Voir details</a>
+                                        <a class="btn btn-primary"
+                                           th:href="@{/fournisseur/appel-offres/{id}(id=${appelOffre.getId()})}">Voir details</a>
                                     </td>
                                     <!-- Add more cells as needed for other Panne properties -->
                                 </tr>
@@ -348,21 +348,21 @@
 
 
 <!-- Bootstrap core JavaScript-->
-<script type="text/javascript" th:src="@{/styles/vendor/jquery/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{/styles/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/styles/vendor/jquery/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{/styles/vendor/bootstrap/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
 
 <!-- Core plugin JavaScript-->
-<script type="text/javascript" th:src="@{/styles/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/styles/vendor/jquery-easing/jquery.easing.min.js}" type="text/javascript"></script>
 
 <!-- Custom scripts for all pages-->
-<script type="text/javascript" th:src="@{/styles/js/sb-admin-2.min.js}"></script>
+<script th:src="@{/styles/js/sb-admin-2.min.js}" type="text/javascript"></script>
 
 <!-- Page level plugins -->
-<script type="text/javascript" th:src="@{/styles/vendor/datatables/jquery.dataTables.min.js}"></script>
-<script type="text/javascript" th:src="@{/styles/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/styles/vendor/datatables/jquery.dataTables.min.js}" type="text/javascript"></script>
+<script th:src="@{/styles/vendor/datatables/dataTables.bootstrap4.min.js}" type="text/javascript"></script>
 
 <!-- Page level custom scripts -->
-<script type="text/javascript" th:src="@{/styles/js/demo/datatables-demo.js}"></script>
+<script th:src="@{/styles/js/demo/datatables-demo.js}" type="text/javascript"></script>
 
 
 </body>
