@@ -9,12 +9,13 @@
     <meta content="" name="description">
     <meta content="" name="author">
 
-    <title>Constat</title>
+    <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" type="text/css">
-    <link th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i}"
-          rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link rel="stylesheet" th:href="@{/styles/css/sb-admin-2.min.css}">
@@ -35,9 +36,20 @@
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">
-                <span th:text="${user.getRole()}"></span>
+                <span th:text="${user.role}">
+                </span>
             </div>
         </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -47,66 +59,30 @@
             Interface
         </div>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed" data-target="#collapseTwo"
-               data-toggle="collapse" href="#">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Components</span>
-            </a>
-            <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="buttons.html">Buttons</a>
-                    <a class="collapse-item" href="cards.html">Cards</a>
-                </div>
-            </div>
-        </li>
-
-
         <!-- Divider -->
         <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Addons
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed"
-               data-target="#collapsePages"
-               data-toggle="collapse" href="#">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
-            </a>
-            <div aria-labelledby="headingPages" class="collapse" data-parent="#accordionSidebar" id="collapsePages">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>
-                    <a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>
-                </div>
-            </div>
+            <a class="nav-link" th:href="@{/fournisseur/appels-offres}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Appels d'offres</span></a>
         </li>
+        <hr class="sidebar-divider d-none d-md-block">
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" th:href="@{/responsable/constats}">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
+                <span>Constats</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/responsable/users}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Utilisateurs</span></a>
         </li>
 
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -129,257 +105,255 @@
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop">
-                    <i class="fa fa-bars"></i>
-                </button>
-
-                <!-- Topbar Search -->
-                <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input aria-describedby="basic-addon2" aria-label="Search"
-                               class="form-control bg-light border-0 small"
-                               placeholder="Search for..." type="text">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
-
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-                           data-toggle="dropdown"
-                           href="#" id="searchDropdown" role="button">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <!-- Dropdown - Messages -->
-                        <div aria-labelledby="searchDropdown"
-                             class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in">
-                            <form class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group">
-                                    <input aria-describedby="basic-addon2" aria-label="Search"
-                                           class="form-control bg-light border-0 small" placeholder="Search for..."
-                                           type="text">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
-
-                    <!-- Nav Item - Alerts -->
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-                           data-toggle="dropdown"
-                           href="#" id="alertsDropdown" role="button">
-                            <i class="fas fa-bell fa-fw"></i>
-                            <!-- Counter - Alerts -->
-                            <span class="badge badge-danger badge-counter">3+</span>
-                        </a>
-                        <!-- Dropdown - Alerts -->
-                        <div aria-labelledby="alertsDropdown"
-                             class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in">
-                            <h6 class="dropdown-header">
-                                Alerts Center
-                            </h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-warning">
-                                        <i class="fas fa-exclamation-triangle text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 2, 2019</div>
-                                    Spending Alert: We've noticed unusually high spending for your account.
-                                </div>
-                            </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                        </div>
-                    </li>
-
-                    <!-- Nav Item - Messages -->
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-                           data-toggle="dropdown"
-                           href="#" id="messagesDropdown" role="button">
-                            <i class="fas fa-envelope fa-fw"></i>
-                            <!-- Counter - Messages -->
-                            <span class="badge badge-danger badge-counter">7</span>
-                        </a>
-                        <!-- Dropdown - Messages -->
-                        <div aria-labelledby="messagesDropdown"
-                             class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in">
-                            <h6 class="dropdown-header">
-                                Message Center
-                            </h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="dropdown-list-image mr-3">
-                                    <img alt="..." class="rounded-circle"
-                                         src="https://source.unsplash.com/Mv9hjnEUHR4/60x60">
-                                    <div class="status-indicator bg-success"></div>
-                                </div>
-                                <div>
-                                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                        told me that people say this to all dogs, even if they aren't good...
-                                    </div>
-                                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                        </div>
-                    </li>
-
-                    <div class="topbar-divider d-none d-sm-block"></div>
-
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-                           data-toggle="dropdown"
-                           href="#" id="userDropdown" role="button">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                <span th:text="${user.getNom()}"></span>
-                                <span th:text="${user.getPrenom()}"></span>
-                            </span>
-                            <img class="img-profile rounded-circle"
-                                 th:src="@{/img/undraw_profile.svg}">
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div aria-labelledby="userDropdown"
-                             class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
-                            <a class="dropdown-item">
-                                <form method="post" th:action="@{/logout}">
-                                    <button class="btn btn-link p-0 m-0 align-baseline" type="submit">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
-                                    </button>
-                                </form>
-                            </a>
-                        </div>
-                    </li>
-
-                </ul>
-
-            </nav>
+            <div th:replace="topBare :: body"></div>
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container">
+            <div class="container-fluid">
+
                 <h1>Détails de l'appel d'offre</h1>
-                <!-- Affichage des détails de l'appel d'offre -->
-                <p>Date de début : <span th:text="${appeloffre.dateDebut}"></span></p>
-                <p>Date de fin : <span th:text="${appeloffre.dateFin}"></span></p>
 
-                <!-- Boucle sur la liste des matériaux associés à l'appel d'offre -->
-                <div th:each="material : ${appeloffre.ressources}">
-                    <!-- Vérification du type de matériel -->
-                    <div th:if="${material.getType() == 'Imprimante'}">
-                        <!-- Affichage des détails d'une imprimante -->
-                        <h3>Imprimante</h3>
-                        <p>ID: <span th:text="${material.id}"></span></p>
-                        <p>Marque: <span th:text="${material.marque}"></span></p>
-                        <p>Résolution: <span th:text="${material.resolution}"></span></p>
-                        <p>Vitesse d'impression: <span th:text="${material.vitesseImpression}"></span></p>
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Soumission</h6>
                     </div>
-                    <div th:if="${material.getType() == 'Ordinateur'}">
-                        <!-- Affichage des détails d'un ordinateur -->
-                        <h3>Ordinateur</h3>
-                        <p>ID: <span th:text="${material.id}"></span></p>
-                        <p>Marque: <span th:text="${material.marque}"></span></p>
-                        <p>CPU: <span th:text="${material.cpu}"></span></p>
-                        <p>Disque: <span th:text="${material.disk}"></span></p>
-                        <p>Écran: <span th:text="${material.ecran}"></span></p>
-                        <p>RAM: <span th:text="${material.ram}"></span></p>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="date-deb">Date Début</label>
+                            <input class="form-control" id="date-deb" name="date_debut"
+                                   th:value="${#dates.format(appeloffre.dateDebut, 'yyyy-MM-dd')}"
+                                   type="date"
+                                   disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date-fin">Date Fin</label>
+                            <input class="form-control" id="date-fin" name="date_fin"
+                                   th:value="${#dates.format(appeloffre.dateFin, 'yyyy-MM-dd')}"
+                                   type="date"
+                                   disabled>
+                        </div>
+
+                        <!--Imprimante Appel Offre-->
+
+                        <h3>Imprimantes </h3>
+                        <div th:if="${listeImprimantes.isEmpty()}">
+                            <p class="alert alert-danger text-center mt-4">Aucune imprimante disponible pour une
+                                soumission !</p>
+                        </div>
+                        <div th:each="imprimante,iterStat : ${listeImprimantes}" class="d-flex w-100 mb-4"
+                             style="width: 100%;">
+                            <div class="card mb-3 border-10" style="max-width: 100%; background-color: #fff3cd; width:
+                    50%;margin-right: 20px; display: flex; align-content: center">
+                                <div class="card-body">
+                                    <p class="card-text">Résolution: <span
+                                            th:text="${imprimante.getResolution()}"></span></p>
+                                    <p class="card-text">Vitesse d'impression: <span
+                                            th:text="${imprimante.getVitesseImpression()}"></span></p>
+                                </div>
+                            </div>
+                            <form id="printerForm-${iterStat.index}" style="width: 50%;" method="post">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <input type="hidden" th:name="imprimante-id" th:value="${imprimante.getId()}">
+                                <div class="form-group">
+                                    <label th:for="'date-livraison' + ${iterStat.index}">Date livraison</label>
+                                    <input class="form-control" th:id="'date-livraison' + ${iterStat.index}"
+                                           name="date_livraison" type="date">
+                                </div>
+                                <div class="form-group">
+                                    <label th:for="'duree-garantie' + ${iterStat.index}">Date garantie</label>
+                                    <input class="form-control" th:id="'duree-garantie' + ${iterStat.index}"
+                                           name="date_garantie" type="date">
+                                </div>
+                                <div class="form-group">
+                                    <label th:for="'marque' + ${iterStat.index}">Marque</label>
+                                    <input class="form-control" th:id="'marque' + ${iterStat.index}" name="marque"
+                                           type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label th:for="'prix' + ${iterStat.index}">Prix</label>
+                                    <input class="form-control" th:id="'prix' + ${iterStat.index}" name="prix"
+                                           type="number">
+                                </div>
+                                <div class="text-center">
+                                    <input type="submit" class="btn btn-primary" value="Soumettre">
+                                </div>
+                            </form>
+                        </div>
+
+                        <!--                        Ordinateurs Appel Offre -->
+
+
+                        <h3>Ordinateurs</h3>
+                        <div th:if="${listeOrdinateurs.isEmpty()}">
+                            <p class="alert alert-danger text-center mt-4">Aucun ordinateur disponible pour une
+                                soumission !</p>
+                        </div>
+                        <div th:each="ordinateur,iterStat : ${listeOrdinateurs}" class="d-flex w-100 mb-4"
+                             style="width: 100%;">
+                            <div class="card mb-3 border-10" style="max-width: 100%; background-color: #fff3cd; width:
+                    50%;margin-right: 20px; display: flex; align-content: center">
+                                <div class="card-body">
+                                    <p class="card-text">CPU: <span th:text="${ordinateur.getCpu()}"></span></p>
+                                    <p class="card-text">Disk: <span th:text="${ordinateur.getDisk()}"></span></p>
+                                    <p class="card-text">RAM: <span th:text="${ordinateur.getRam()}"></span></p>
+                                    <p class="card-text">Ecran: <span th:text="${ordinateur.getEcran()}"></span></p>
+                                </div>
+                            </div>
+                            <form id="computerForm-${iterStat.index}" class="computer-form" style="width: 50%;"
+                                  method="post">
+                                <!-- Assuming you're using Thymeleaf with Spring Security -->
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <input type="hidden" name="ordinateur-id" th:value="${ordinateur.getId()}">
+                                <div class="form-group">
+                                    <label for="'date-livraison' + ${iterStat.index}">Date livraison</label>
+                                    <input class="form-control" id="'date-livraison' + ${iterStat.index}"
+                                           name="date_livraison"
+                                           type="date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="'duree-garantie' + ${iterStat.index}">Date garantie</label>
+                                    <input class="form-control" id="'duree-garantie' + ${iterStat.index}"
+                                           name="date_garantie"
+                                           type="date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="'marque' + ${iterStat.index}">Marque</label>
+                                    <input class="form-control" id="'marque' + ${iterStat.index}" name="marque"
+                                           type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="'prix' + ${iterStat.index}">Prix</label>
+                                    <input class="form-control" id="'prix' + ${iterStat.index}" name="prix"
+                                           type="number">
+                                </div>
+                                <div class="text-center">
+                                    <input type="submit" class="btn btn-primary" value="Soumettre">
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <!-- Formulaire de soumission -->
-                    <form th:action="@{/fournisseur/soumission/{id}(id=${appeloffre.id})}" method="post" >
-                        <label for="dateLivraison">Date de livraison:</label><br>
-                        <input type="date" id="dateLivraison" name="dateLivraison"><br>
 
-                        <label for="dureeGarantie">Durée de garantie (en mois):</label><br>
-                        <input type="number" id="dureeGarantie" name="dureeGarantie"><br>
 
-                        <label for="prix">Prix:</label><br>
-                        <input type="number" id="prix" name="prix"><br>
-
-                        <!-- Champ caché pour l'ID de la ressource matérielle -->
-                        <input type="hidden" id="ressourceId" name="ressourceId" th:value="${material.id}">
-
-                        <!-- Champ caché pour l'ID du fournisseur -->
-                        <input type="hidden" id="fournisseurId" name="fournisseurId" th:value="${user.id}">
-
-                    </form>
                 </div>
-                <form th:action="@{/fournisseur/soumission/{id}(id=${appeloffre.id})}" method="post">
-                    <!-- Champ caché pour envoyer la liste de soumissions au backend -->
-                    <input type="hidden" name="soumission" th:value="${soumissions}" />
-                <input class="btn btn-primary" type="submit" value="Soumettre">
-                </form>
             </div>
-
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; GL Project 2024</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Page Wrapper -->
+    <!-- /.container-fluid -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; GL Project 2024</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
 
 
-    <!-- Bootstrap core JavaScript-->
-    <script th:src="@{/styles/vendor/jquery/jquery.min.js}" type="text/javascript"></script>
-    <script th:src="@{/styles/vendor/bootstrap/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{/styles/vendor/jquery/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{/styles/vendor/bootstrap/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script th:src="@{/styles/vendor/jquery-easing/jquery.easing.min.js}" type="text/javascript"></script>
+<!-- Core plugin JavaScript-->
+<script th:src="@{/styles/vendor/jquery-easing/jquery.easing.min.js}" type="text/javascript"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script th:src="@{/styles/js/sb-admin-2.min.js}" type="text/javascript"></script>
+<!-- Custom scripts for all pages-->
+<script th:src="@{/styles/js/sb-admin-2.min.js}" type="text/javascript"></script>
 
-    <!-- Page level plugins -->
-    <script th:src="@{/styles/vendor/datatables/jquery.dataTables.min.js}" type="text/javascript"></script>
-    <script th:src="@{/styles/vendor/datatables/dataTables.bootstrap4.min.js}" type="text/javascript"></script>
+<!-- Page level plugins -->
+<script th:src="@{/styles/vendor/datatables/jquery.dataTables.min.js}" type="text/javascript"></script>
+<script th:src="@{/styles/vendor/datatables/dataTables.bootstrap4.min.js}" type="text/javascript"></script>
 
-    <!-- Page level custom scripts -->
-    <script th:src="@{/styles/js/demo/datatables-demo.js}" type="text/javascript"></script>
+<!-- Page level custom scripts -->
+<script th:src="@{/styles/js/demo/datatables-demo.js}" type="text/javascript"></script>
 
-
+<script>
+    $(document).ready(function () {
+        var csrfToken = $('input[name="_csrf"]').val();
+        var csrfHeader = "X-CSRF-TOKEN";
+        $('form[id^="computerForm-"]').on('submit', function (e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                url: '/fournisseur/soumission/add',
+                type: 'POST',
+                data: {
+                    "id": form.find('input[name="ordinateur-id"]').val(),
+                    "date_livraison": form.find('input[name="date_livraison"]').val(),
+                    "date_garantie": form.find('input[name="date_garantie"]').val(),
+                    "marque": form.find('input[name="marque"]').val(),
+                    "prix": form.find('input[name="prix"]').val()
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function (response) {
+                    form.replaceWith('<p class="text-success text-center">' + response + '</p>');
+                },
+                error: function (xhr, status, error) {
+                    alert('Error submitting data');
+                    console.error("Submission failed: " + error);
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var csrfToken = $('input[name="_csrf"]').val();
+        var csrfHeader = "X-CSRF-TOKEN";
+        $('form[id^="printerForm-"]').on('submit', function (e) {
+            e.preventDefault();
+            var form = $(this);
+            // console.log({
+            //     "id": form.find('input[name="imprimante-id"]').val(),
+            //     "date_livraison": form.find('input[name="date_livraison"]').val(),
+            //     "date_garantie": form.find('input[name="date_garantie"]').val(),
+            //     "marque": form.find('input[name="marque"]').val(),
+            //     "prix": form.find('input[name="prix"]').val()
+            // });
+            $.ajax({
+                url: '/fournisseur/soumission/add',
+                type: 'POST',
+                data: {
+                    "id": form.find('input[name="imprimante-id"]').val(),
+                    "date_livraison": form.find('input[name="date_livraison"]').val(),
+                    "date_garantie": form.find('input[name="date_garantie"]').val(),
+                    "marque": form.find('input[name="marque"]').val(),
+                    "prix": form.find('input[name="prix"]').val()
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function (response) {
+                    form.replaceWith('<p class="text-success text-center">' + response + '</p>');
+                },
+                error: function (xhr, status, error) {
+                    alert('Error submitting data');
+                    console.error("Submission failed: " + error);
+                }
+            });
+        });
+    });
+</script>
 </body>
 
 </html>

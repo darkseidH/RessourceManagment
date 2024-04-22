@@ -32,9 +32,12 @@ public class FournisseurService {
     public List<AppelOffre> getAllAppleOffre() {
         return appleOffreRepository.findAll();
     }
-    public AppelOffre getappelOffreDetails(long id){
+
+    public AppelOffre getappelOffreDetails(long id) {
         return appeloffreService.getAppelOffreById(id);
     }
-    public Soumission saveSoumission(Soumission soumission){  return soumissionRepository.save(soumission);
+
+    public Soumission saveSoumission(Soumission soumission) {
+        return soumissionRepository.save(soumission);
     }
 }

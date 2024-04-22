@@ -31,6 +31,6 @@ public class Soumission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int dureeGarantie;
+    private Date dateGarantie;
     private double prix;
 }//end Soumition

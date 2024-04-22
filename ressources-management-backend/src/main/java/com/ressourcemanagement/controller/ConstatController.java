@@ -1,7 +1,10 @@
 package com.ressourcemanagement.controller;
 
 import com.ressourcemanagement.dto.PanneDTO;
-import com.ressourcemanagement.model.*;
+import com.ressourcemanagement.model.Ordinateur;
+import com.ressourcemanagement.model.Panne;
+import com.ressourcemanagement.model.RessourceMaterielle;
+import com.ressourcemanagement.model.User;
 import com.ressourcemanagement.service.ConstatService;
 import com.ressourcemanagement.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;

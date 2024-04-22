@@ -37,6 +37,4 @@ public abstract class RessourceMaterielle {
     @JoinColumn(name = "appel_offre_id", nullable = true)
     private AppelOffre appelOffre;
 
-    public abstract String getType();
-
 }
