@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -111,5 +112,25 @@ public class AppelOffreController {
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }
+
+    @GetMapping("/responsable/appel-offres/{id}/soumissions")
+    public String getAppelOffreSoumission(@PathVariable("id") long id, @AuthenticationPrincipal User user,
+                                          Model model) {
+        AppelOffre appelOffre = appelOffreService.getAppelOffreById(id);
+        List<RessourceMaterielle> appelOffreRessources = appelOffre.getRessources();
+        List<Soumission> soumissions = appelOffreRessources.stream()
+                .flatMap(ressource -> ressource.getSoumissions().stream())
+                .toList();
+        HashMap<RessourceMaterielle, List<Soumission>> ressourceSoumission = new HashMap<>();
+        appelOffreRessources.forEach(ressource -> {
+            List<Soumission> soumissionList =
+                    soumissions.stream().filter(soumission -> soumission.getRessources().getId() == ressource.getId()).toList();
+            ressourceSoumission.put(ressource, soumissionList);
+        });
+        model.addAttribute("appelOffre", appelOffre);
+        model.addAttribute("user", user);
+        model.addAttribute("ressourceSoumission", ressourceSoumission);
+        return "responsable/appel-offres/soumissions";
     }
 }

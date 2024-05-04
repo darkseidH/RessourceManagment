@@ -9,7 +9,7 @@
     <meta content="" name="description">
     <meta content="" name="author">
 
-    <title>Appels-Offres</title>
+    <title>Soumissions</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/styles/vendor/fontawesome-free/css/all.min.css}" type="text/css">
@@ -36,7 +36,7 @@
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">
-                <span th:text="${user.getRole()}">
+                <span th:text="${user.role}">
                 </span>
             </div>
         </a>
@@ -133,54 +133,91 @@
             <!-- Topbar -->
             <div th:replace="topBare :: body"></div>
             <!-- End of Topbar -->
+            <style>
+                .resource-item {
+                    margin-bottom: 20px;
+                    padding: 10px;
+                    background-color: #f8f9fa;
+                    border-radius: 5px;
+                }
 
+                .computer-details, .printer-details {
+                    margin-bottom: 10px;
+                }
+
+                .detail {
+                    margin-bottom: 5px;
+                    font-size: 14px;
+                }
+
+                .separator {
+                    border-top: 1px solid #dee2e6;
+                }
+            </style>
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <h1>Appel offres</h1>
+                <h1>Soumissions</h1>
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Liste des appels offres</h6>
-                    </div>
                     <div class="card-body">
-                        <div class="text-right">
-                            <a class="btn btn-primary mb-3" th:href="@{/responsable/appel-offres/add}">Ajouter nouvelle
-                                appel d'offre</a>
+                        <h1 class="my-4-bottom">Apple Offre</h1>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="date-deb">Date Debut</label>
+                                    <input class="form-control" disabled id="date-deb" name="date_debut"
+                                           th:value="${#dates.format(appelOffre.dateDebut, 'yyyy-MM-dd')}" type="date">
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="date-fin">Explication</label>
+                                    <input class="form-control" disabled id="date-fin" name="date_fin"
+                                           th:value="${#dates.format(appelOffre.dateFin, 'yyyy-MM-dd')}" type="date">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <h1>List des Ressources</h1>
+                        <div th:each="entry : ${ressourceSoumission}">
+                            <div class="resource-item">
+                                <p class="detail"><strong>Marque:</strong> <span th:text="${entry.key.marque}"></span>
+                                </p>
+                                <div class="computer-details"
+                                     th:if="${entry.key instanceof T(com.ressourcemanagement.model.Ordinateur)}">
+                                    <p class="detail"><strong>CPU:</strong> <span th:text="${entry.key.cpu}"></span></p>
+                                    <p class="detail"><strong>Disk:</strong> <span th:text="${entry.key.disk}"></span>
+                                    </p>
+                                    <p class="detail"><strong>Ecran:</strong> <span th:text="${entry.key.ecran}"></span>
+                                    </p>
+                                    <p class="detail"><strong>RAM:</strong> <span th:text="${entry.key.ram}"></span></p>
+                                </div>
+                                <div class="ordinateur-soumission">
+<!--                                    <div th:each="soumission : ${entry.value}">-->
+                                    <!--                                        &lt;!&ndash; Display the details of the Soumission &ndash;&gt;-->
+                                    <!--                                        <p class="detail"><strong>Soumission ID:</strong> <span-->
+                                    <!--                                                th:text="${soumission.id}"></span></p>-->
+                                    <!--                                        <p class="detail"><strong>Soumission Date:</strong> <span-->
+                                    <!--                                                th:text="${#dates.format(soumission.date, 'yyyy-MM-dd')}"></span></p>-->
+                                    <!--                                        &lt;!&ndash; Add more details as needed &ndash;&gt;-->
+                                    <!--                                    </div>-->
+                                </div>
+                                <div class="printer-details"
+                                     th:if="${entry.key instanceof T(com.ressourcemanagement.model.Imprimante)}">
+                                    <p class="detail"><strong>Resolution:</strong> <span
+                                            th:text="${entry.key.resolution}"></span></p>
+                                    <p class="detail"><strong>Vitesse d'impression:</strong> <span
+                                            th:text="${entry.key.vitesseImpression}"></span></p>
+                                </div>
+                                <hr class="separator">
+                            </div>
+                        </div>
+                        <div class="my-5 text-center d-flex flex-column align-items-center">
+                            <a class="btn btn-primary" th:href="@{/responsable/appel-offres}">Return back</a>
                         </div>
 
-                        <div class="table-responsive">
-                            <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>Date Debut</th>
-                                    <th>Date Fin</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:if="${appelOffres.isEmpty()}">
-                                    <td colspan="4"> Pas d'appels d'offres!</td>
-                                </tr>
-                                <!--/*@thymesVar id="pannes" type=""*/-->
-                                <tr th:each="appelOffre : ${appelOffres}">
-                                    <td th:text="${#dates.format(appelOffre.getDateDebut(), 'yyyy-MM-dd')}"></td>
-                                    <td th:text="${#dates.format(appelOffre.getDateFin(), 'yyyy-MM-dd')}"></td>
-                                    <td>
-                                        <div class="d-flex justify-content-center mb-3">
-                                            <a class="btn btn-primary mr-2"
-                                               th:href="@{/responsable/appel-offres/{id}/content(id=${appelOffre.getId()})}">Voir</a>
-                                            <a class="btn btn-danger mr-2"
-                                               th:href="@{/responsable/appel-offres/{id}/modifier(id=${appelOffre.getId()})}">Modifier</a>
-                                            <a class="btn btn-warning mr-2"
-                                               th:href="@{/responsable/appel-offres/{id}/delete(id=${appelOffre.getId()})}">Supprimer</a>
-                                            <a class="btn btn-success"
-                                               th:href="@{/responsable/appel-offres/{id}/soumissions(id=${appelOffre.getId()})}">Soumissions</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
 
